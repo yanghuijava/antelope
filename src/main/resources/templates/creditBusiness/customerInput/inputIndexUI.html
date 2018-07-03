@@ -1,0 +1,167 @@
+<#include "/common/head.html">
+<div data-options="region:'north',border:false" style="height:400px;padding:20px 5px 0px 5px;">
+	<div><h3>客户资料</h3></div>
+	<form id="customer_input_form" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+	    <#if customer??>
+	    	<input type="hidden" name="id" value="${customer.id}" id="id${rand}">
+	    </#if>
+	    <table>
+	    	<tr>
+				<td>
+					<input class="easyui-textbox" data-options="required: true" label="姓名:" labelPosition="left" name="name" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-textbox" data-options="required: true,validType:{length:[18,18]}" label="身份证号:" labelPosition="left" name="identityCard" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-numberbox" data-options="required: true,validType:{length:[11,11]}" label="手机号码:" labelPosition="left" name="phoneNumber" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input label="客户经理:" labelPosition="left" name="accountManager" id="accountManager${rand}" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-textbox" data-options="required: true" label="客户来源:" labelPosition="left" name="source" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-textbox" data-options="required: true" label="籍贯:" labelPosition="left" name="nativePlace" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<input class="easyui-textbox" label="家庭住址:" labelPosition="left" name="homeAddress" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<input class="easyui-textbox" data-options="required: true" label="住址:" labelPosition="left" name="address" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input label="婚姻状况:" data-options="required: true" labelPosition="left" name="marriageStatus" id="marriageStatus${rand}" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-datebox" data-options="required: true" label="来深时间:" labelPosition="left" name="comeShenzhenDate" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input label="客户类别:" data-options="required: true" labelPosition="left" name="type" id="type${rand}" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<input class="easyui-filebox" label="征信报告:" labelPosition="left" name="creditReport" style="width:300px;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<input class="easyui-filebox" label="流水附件:" labelPosition="left" name="flowFile" style="width:300px;height:30px">
+				</td>
+			</tr>
+	    </table>
+	</form>
+	<div style="margin:20px 0 10px 0;">
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" id="next${rand}" style="width:15%">下一步</a>
+       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
+       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="cancel${rand}" style="width:15%">取消</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		var form = $("#customer_input_form");
+		var nextBtn = $("#next${rand}");
+		var finishBtn = $("#finish${rand}");
+		var cancelBtn = $("#cancel${rand}");
+		
+		<#if customer??>
+			form.form("load","customer/load.json?id=${customer.id}");
+		</#if>
+		
+		nextBtn.click(function(){
+			formSubmit("nextBtn");
+		});
+		
+		finishBtn.click(function(){
+			formSubmit("finishBtn");
+		});
+		
+		cancelBtn.click(function(){
+			location.replace("customer/listUI.html");
+		});
+		
+		function formSubmit(type){
+			$.messager.progress();
+			form.form('submit',{
+				<#if customer??>
+        	    	url:"customer/update.json",
+        	    <#else>
+					url:"customer/save.json",
+        	    </#if>
+        	    onSubmit: function(){
+        	    	var isValid = $(this).form('validate');
+        			if (!isValid){
+        				$.messager.progress('close');
+        			}
+        			return isValid;
+        	    },
+        	    success:function(data){
+        	    	$.messager.progress('close');
+        	    	var obj = eval('(' + data + ')');
+        	    	if(obj.success){
+        	    		showMessager(obj.message);
+        	    		if(type == "nextBtn"){
+        	    			location.replace("customerInput/nextUI.html?customerId=" + obj.data);
+        	    		}else if(type == "finishBtn"){
+        	    			location.replace("customerInput/customerDetailsUI.html?customerId=" + obj.data);
+        	    		}
+        	    	}else {
+        	    		$.messager.alert('提示',obj.message,'error');
+        	    	}
+        	    }
+        	});
+		}
+		
+		$("#accountManager${rand}").combobox({
+		    url:'user/getAccountManager.json',
+		    valueField:'accountManager',
+		    textField:'name',
+		    panelHeight:'auto'
+		});
+		
+		$('#type${rand}').combobox({
+		    url:'combobox_data.json',
+		    valueField:'type',
+		    textField:'typeName',
+		    data:[{
+		        "type":"1",
+		        "typeName":"上班"
+		    },{
+		    	"type":"2",
+		        "typeName":"自雇"
+		    },{
+		    	"type":"3",
+		        "typeName":"既上班又自雇"
+		    }],
+		    panelHeight:'auto'
+		});
+		
+		$('#marriageStatus${rand}').combobox({
+		    valueField:'marriageStatus',
+		    textField:'marriageStatusname',
+		    data:[{
+		        "marriageStatus":1,
+		        "marriageStatusname":"未婚"
+		    },{
+		    	"marriageStatus":2,
+		        "marriageStatusname":"已婚"
+		    },{
+		    	"marriageStatus":3,
+		        "marriageStatusname":"离异"
+		    }],
+		    panelHeight:'auto'
+		});
+	});
+</script>
+<#include "/common/foot.html">

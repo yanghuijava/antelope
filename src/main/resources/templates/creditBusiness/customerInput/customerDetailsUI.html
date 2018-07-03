@@ -1,0 +1,99 @@
+<#include "/common/head.html">
+<div data-options="region:'north',border:false" style="height:600px;padding:20px 5px 0px 5px;">
+	<div><h3>客户资料详情</h3></div>
+	<div id="customerDetailTabs" class="easyui-tabs" data-options="border:true" style="width:100%;height:350px;">
+        <div title="客户基本资料" style="overflow:auto;width:100%;padding:20px;">
+        	<form id="" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+    		<table>
+		    	<tr>
+					<td>
+						<input class="easyui-textbox" label="姓名:" value="${customer.name}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+					<td>
+						<input class="easyui-textbox" label="身份证号:" value="${customer.identityCard}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+					<td>
+						<input class="easyui-textbox" label="手机号码:" value="${customer.phoneNumber}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input class="easyui-textbox" label="客户经理:" value="${customer.accountManagerName}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+					<td>
+						<input class="easyui-textbox" label="客户来源:" value="${customer.source}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+					<td>
+						<input class="easyui-textbox" label="籍贯:" value="${customer.nativePlace}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+				</tr>
+				<tr>
+					<td colspan=3>
+						<input class="easyui-textbox" label="家庭住址:" value="<#if customer.homeAddress??>${customer.homeAddress}</#if>" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+				</tr>
+				<tr>
+					<td colspan=3>
+						<input class="easyui-textbox" label="住址" value="${customer.address}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input class="easyui-textbox" label="婚姻状况:" value="${customer.marriageStatusName}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+					<td>
+						<input class="easyui-textbox" label="来深时间:" value="${customer.comeShenzhenDateStr}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+					<td>
+						<input class="easyui-textbox" label="客户类别:" value="${customer.typeName}" readonly="readonly" labelPosition="left" style="width:100%;height:30px">
+					</td>
+				</tr>
+				<tr>
+					<td colspan=3>
+						<input class="easyui-textbox" label="征信报告:" value="${customer.name}" readonly="readonly" labelPosition="left" style="width:300px;height:30px">
+					</td>
+				</tr>
+				<tr>
+					<td colspan=3>
+						<input class="easyui-textbox" label="流水附件:" value="${customer.name}" readonly="readonly" labelPosition="left" style="width:300px;height:30px">
+					</td>
+				</tr>
+		    </table>
+		    </form>
+        </div>
+        <div title="职业资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+        <div title="自雇资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+        <div title="同行贷资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+        <div title="联系人资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+        <div title="房产资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+        <div title="车辆资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+        <div title="信用贷款资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+        <div title="信用卡资料" style="overflow:auto;padding:20px;display:none;">
+        </div>
+    </div>
+	<div style="margin:20px 0 10px 0;">
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="reedit${rand}" style="width:15%">重新编辑</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="search${rand}" style="width:15%">返回查询列表</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		var reeditBtn = $("#reedit${rand}");
+		var searchBtn = $("#search${rand}");
+		searchBtn.click(function(){
+			location.replace("customer/listUI.html");
+		});
+		reeditBtn.click(function(){
+			location.replace("customerInput/indexUI.html?customerId=${customer.id}");
+		});
+	});
+</script>
+<#include "/common/foot.html">

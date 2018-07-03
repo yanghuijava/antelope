@@ -1,0 +1,117 @@
+<#include "/common/head.html">
+<div data-options="region:'north',border:false" style="height:400px;padding:20px 5px 0px 5px;">
+	<div><h3>职业资料</h3></div>
+	<form id="profession_form" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+	    <#if customer??>
+			<input type="hidden" name="customerId" id="customerId${rand}" value="${customer.id}">
+		</#if>
+		<#if profession??>
+			<input type="hidden" name="id" value="${profession.id}">
+		</#if>
+	    <table>
+	    	<tr>
+	    		<td colspan="3">
+					<input class="easyui-textbox" data-options="required: true" label="单位名称:" labelPosition="left" name="companyName" style="width:100%;height:30px">
+				</td>
+	    	</tr>
+	    	<tr>
+	    		<td>
+					<input class="easyui-textbox" data-options="required: true" label="部门:" labelPosition="left" name="deptName" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-textbox" data-options="required: true" label="公司性质:" labelPosition="left" name="companyNature" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-textbox" data-options="required: true" label="公司电话:" labelPosition="left" name="telephone" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input class="easyui-textbox" label="公司地址:" data-options="required: true" labelPosition="left" name="companyAddress" style="width:100%;height:30px">
+				</td>
+			<th>
+			<tr>
+				<td>
+					<input class="easyui-textbox" data-options="required: true" label="职位:" labelPosition="left" name="position" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-numberbox" label="工作年限:" data-options="required: true" labelPosition="left" name="workingLife" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-numberbox" data-options="required: true,precision:2" label="月收入:" labelPosition="left" name="monthIncome" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="easyui-datebox" data-options="required: true" label="发薪日:" labelPosition="left" name="payday" style="width:100%;height:30px">
+				</td>
+			</tr>
+	    </table>
+	</form>
+	<div style="margin:20px 0 10px 0;">
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" id="back${rand}" style="width:15%">上一步</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" id="next${rand}" style="width:15%">下一步</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="skip${rand}" style="width:15%">跳过</a>
+       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var backBtn = $("#back${rand}");
+		var nextBtn = $("#next${rand}");
+		var finishBtn = $("#finish${rand}");
+		var skipBtn = $("#skip${rand}");
+		var form = $("#profession_form");
+		
+		backBtn.click(function(){
+			location.replace("profession/lastPageUI.html?customerId=${customer.id}");
+		});
+		skipBtn.click(function(){
+			location.replace("profession/nextUI.html?customerId=${customer.id}");
+		});
+		
+		<#if profession??>
+			form.form("load","profession/load.json?id=${profession.id}");
+		</#if>
+		
+		finishBtn.click(function(){
+			formSubmit("finishBtn");
+		});
+		nextBtn.click(function(){
+			formSubmit("nextBtn");
+		});
+		
+		function formSubmit(type){
+			$.messager.progress();
+			form.form('submit',{
+				<#if profession??>
+        	    	url:"profession/update.json",
+        	    <#else>
+					url:"profession/save.json",
+        	    </#if>
+        	    onSubmit: function(){
+        	    	var isValid = $(this).form('validate');
+        			if (!isValid){
+        				$.messager.progress('close');
+        			}
+        			return isValid;
+        	    },
+        	    success:function(data){
+        	    	$.messager.progress('close');
+        	    	var obj = eval('(' + data + ')');
+        	    	if(obj.success){
+        	    		showMessager(obj.message);
+        	    		if(type == "nextBtn"){
+        	    			location.replace("profession/nextUI.html?customerId=${customer.id}");
+        	    		}else if(type == "finishBtn"){
+        	    			location.replace("customerInput/customerDetailsUI.html?customerId=${customer.id}");
+        	    		}
+        	    	}else {
+        	    		$.messager.alert('提示',obj.message,'error');
+        	    	}
+        	    }
+        	});
+		}
+	});
+</script>
+<#include "/common/foot.html">

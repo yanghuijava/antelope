@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href='${base}'/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>antelope管理系统</title>
+<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="css/themes/icon.css"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="js/jquery.edatagrid.js"></script>
+<script type="text/javascript" src="js/datagrid-detailview.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body class="easyui-layout">
+    <div id="loginWin" class="easyui-window" title="欢迎使用帮360信贷管理系统" style="width:350px;height:188px;padding:5px;"
+         minimizable="false" maximizable="false" resizable="false" collapsible="false">
+        <div class="easyui-layout" fit="true">
+            <div region="center" border="false" style="padding:5px;background:#fff;border:1px solid #ccc;">
+                <form id="loginForm" method="post" action="loginExecute.html">
+                	<#if targerUrl??>
+						<input type="hidden" name="targerUrl" value="${targerUrl}">
+					</#if>
+                    <div style="padding:5px 0;">
+                        <label for="account">帐号:</label>
+                        <input type="text" id="account" name="account" style="width:260px;" />
+                    </div>
+                    <div style="padding:5px 0;">
+                        <label for="password">密码:</label>
+                        <input type="password" id="password" name="password" style="width:260px;" />
+                    </div>
+                    <div style="padding:5px 0;text-align: center;color: red;" id="showMsg">
+                    	<#if errorMsg??>
+							${errorMsg}
+						</#if>
+                    </div>
+                </form>
+            </div>
+            <div region="south" border="false" style="text-align:right;padding:5px 0;">
+                <a class="easyui-linkbutton" iconcls="icon-ok" href="javascript:void(0)" id="submitBnt">登录</a>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+	$(function(){
+		$('#submitBnt').click(function(){
+			var account = $("#account").val();
+			var password = $("#password").val();
+			if(account == ''){
+				$.messager.alert("warn","账号不能为空");
+				return;
+			}
+			if(password == ''){
+				$.messager.alert("warn","密码不能为空");
+				return;
+			}
+			$('#loginForm').submit();
+		});
+	});
+</script>
+</body>
+</html>

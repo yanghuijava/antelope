@@ -1,0 +1,173 @@
+<#include "/common/head.html">
+<div data-options="region:'north',border:false" style="height:120px;padding:20px 5px 0px 5px;">
+	<div class="easyui-panel" style="padding:5px;">
+        <a id="query${rand}" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-search'">查询</a>
+    	<a id="reset${rand}" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'">重置</a>
+    </div>
+	<div class="easyui-panel" style="padding:5px;border-top: none;">
+    	<table >
+			<tr>
+				<th>账号：</th><td><input class="easyui-textbox" type="text" id="account"></input></td>
+				<th>姓名：</th><td><input class="easyui-textbox" type="text" id="name"></input></td>
+				<th>手机：</th><td><input class="easyui-textbox" type="text" id="mobile"></input><br/></td>
+			</tr>
+			<tr>
+			</tr>
+	    </table>
+	</div>
+</div>
+<div data-options="region:'center',border:false" style="padding:5px 5px 5px 5px;">
+	<table id="user-dg${rand}"></table>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var dg = $('#user-dg${rand}');
+		dg.edatagrid({
+			url: 'user/list.json',
+		    fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    idField: 'id',
+		    saveUrl: 'user/save.json',
+			updateUrl: 'user/update.json',
+			destroyUrl: 'user/delete.json',
+			onSave:function(index,row){
+				if(row.message){
+					showMessager(row.message);
+				}
+				dg.edatagrid("reload");
+			},
+			onDestroy:function(index,row) {
+				showMessager(row.message);
+				dg.edatagrid("reload");
+			},
+			onError:function(index,data) {
+				$.messager.alert('错误', data.message,"error");
+				dg.edatagrid("reload");
+			},
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+    			{field:'account',title:'登陆账号',width:100,editor:{
+    				type:'validatebox',
+    				options:{required:true}
+    			}},
+    	        {field:'name',title:'用户名称',width:80,editor:{
+    				type:'text',
+    			}},
+    	        {field:'telephone',title:'电话',width:100,editor:{
+    				type:'text',
+    			}},
+	  	        {field:'mobile',title:'移动电话',width:100,editor:{
+    				type:'text',
+    			}},
+	   	     	{field:'email',title:'电子邮件',width:150,editor:{
+    				type:'text',
+    			}},
+	  	      	{field:'status',title:'是否冻结',width:60,formatter: function(value,row,index){
+	  	      		if(value == 0) {
+	  	      			return "是";
+	  	      		}else {
+	  	      			return "否";
+	  	      		}
+	  	      	}},
+	  	      	{field:'roleIds',title:'角色',width:180,formatter: function(value,row,index){
+	  	      		var roleNames = '';
+		  	      	$.ajax({ 
+		  	          type: "post",
+		  	          data:{roleIds:row.roleIds},
+		  	          url: "role/queryRoleNames.json", 
+		  	          cache:false, 
+		  	          async:false, 
+		  	          dataType:"json", 
+		  	          success: function(data){ 
+		  	        	roleNames = data.message;
+		  	          } 
+		  	  		});
+	  	      		return roleNames;
+	  	      	},editor:{
+    				type:'combobox',
+    				options:{
+    					url:'role/listAll.json',
+    					method:'post',
+    					valueField:'id',
+    	      			textField:'name',
+    					multiple:true,
+    					panelHeight:'auto'
+    				}
+    			}},
+    			{field:'createByName',title:'创建人',width:60},
+	   	     	{field:'createTime',title:'创建时间',width:80},
+	   	     	{field:'updateByName',title:'更新人',width:60},
+	   	     	{field:'updateTime',title:'创建时间',width:80}
+	   	        
+		    ]],
+		    <@toolbar code="user_manage"/>
+		});
+		
+		function frozen(){
+			var selectRow = dg.edatagrid('getSelected');
+			if(selectRow == null ||selectRow.length == 0) {
+				$.messager.alert('警告', '请选择需要操作的行！','warning');
+				return;
+			}
+			var param = {};
+			param.id = selectRow.id;
+			$.post('user/frozen.json',param,function(data){
+				if(data.success) {
+					showMessager(data.message);
+					dg.edatagrid('reload');
+				}else {
+					$.messager.alert('错误', data.message,'error');
+				}
+			},'json');
+		}
+		
+		function unfrozen(){
+			var selectRow = dg.edatagrid('getSelected');
+			if(selectRow == null ||selectRow.length == 0) {
+				$.messager.alert('警告', '请选择需要操作的行！','warning');
+				return;
+			}
+			var param = {};
+			param.id = selectRow.id;
+			$.post('user/unfrozen.json',param,function(data){
+				if(data.success) {
+					showMessager(data.message);
+					dg.edatagrid('reload');
+				}else {
+					$.messager.alert('错误', data.message,'error');
+				}
+			},'json');
+		}
+		
+		function add(){
+			dg.edatagrid('addRow');
+		}
+		function save(){
+			dg.edatagrid('saveRow');
+		}
+		function cancel(){
+			dg.edatagrid('cancelRow');
+		}
+		function destroy(){
+			dg.edatagrid('destroyRow');
+		}
+		
+		$('#reset${rand}').click(function(){
+			$("#account").textbox('clear');
+			$("#name").textbox('clear');
+			$("#mobile").textbox('clear');
+		});
+		$('#query${rand}').click(function(){
+			var queryParams = dg.edatagrid("options").queryParams;
+			queryParams.account = $("#account").textbox('getValue');
+			queryParams.name = $('#name').textbox('getValue');
+			queryParams.mobile = $("#mobile").textbox('getValue');
+			dg.edatagrid("reload");
+		});
+	});
+</script>
+<#include "/common/foot.html">

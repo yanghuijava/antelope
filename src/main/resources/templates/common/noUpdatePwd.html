@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+	<base href="${base}"></base>
+	<meta charset="utf-8"/>
+	<title>antelope管理系统</title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css"/>
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="js/jquery.edatagrid.js"></script>
+	<script type="text/javascript" src="js/datagrid-detailview.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+  </head>
+  <body>
+	<div class="easyui-layout" data-options="fit:true" style="">
+	  <div data-options="region:'north',border:false" style="height:60px;padding:10px;">
+		<h4>密码没有重新设置,不能进行相关操作,请先修改密码！</h4>
+	  </div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$.post("common/testjson.json");
+		});
+	</script>
+  </body>
+</html>

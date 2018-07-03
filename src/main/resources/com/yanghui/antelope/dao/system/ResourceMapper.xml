@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanghui.antelope.dao.system.ResourceMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.yanghui.antelope.domain.system.Resource">
+		<id column="id" property="id" />
+		<result column="pid" property="pid" />
+		<result column="type" property="type" />
+		<result column="name" property="name" />
+		<result column="code" property="code" />
+		<result column="index_" property="index" />
+		<result column="action" property="action" />
+		<result column="url" property="url" />
+		<result column="icon" property="icon" />
+		<result column="remark" property="remark" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_by" property="updateBy" />
+		<result column="update_time" property="updateTime" />
+		<result column="yn" property="yn" />
+	</resultMap>
+	
+	<select id="selectUserSubs" parameterType="map" resultMap="BaseResultMap">
+  	select * from resource
+  	<where>
+  		<if test="parentCode != null"> and pid in (select id from resource where code = #{parentCode})</if>
+  		<if test="types != null"> and type in <foreach collection="types" item="item" open="(" separator="," close=")" >#{item}</foreach></if>
+  		<if test="userId != null"> and id in(select res_id from role_resource where role_id in( select role_id from user_role where user_id = #{userId}))</if>
+  	</where>
+  	order by index_
+  </select>
+
+</mapper>

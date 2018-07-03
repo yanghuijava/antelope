@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<base href='${base}'/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>antelope管理系统</title>
+<link rel="stylesheet" type="text/css" href="css/page/login.css"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="js/jquery.edatagrid.js"></script>
+<script type="text/javascript" src="js/datagrid-detailview.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+     <div class="second_body">
+        <form data-bind="submit:loginClick" action="loginExecute.html" id="form" method="post">
+        	<#if targerUrl??>
+				<input type="hidden" name="targerUrl" value="${targerUrl}">
+			</#if>
+            <div class="logo"></div>
+            <div class="title-zh">360信贷管理系统</div>
+            <div class="title-en" style="">Help 360 credit management system</div>
+            <div class="message" data-bind="html:message"></div>
+            <table border="0" style="width:300px;">
+                <tr>
+                    <td style="white-space:nowrap; padding-bottom: 5px;width:55px;">用户名：</td>
+                    <td colspan="2"><input type="text" id="account" name="account" class="login" data-bind="value:form.userCode" /></td>
+                </tr>
+                <tr>
+                    <td class="lable" style="white-space:nowrap; letter-spacing: 0.5em; vertical-align: middle">密码：</td>
+                    <td colspan="2"><input type="password" id="password" name="password" class="login" data-bind="value:form.password" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                    <!-- <input type="checkbox" data-bind="checked:form.remember" /><span>系统记住我</span> -->
+	                    <#if errorMsg??>
+						<div class="errorMsg">${errorMsg}</div>
+						</#if>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align:center">
+                        <input type="submit" value="登录" class="login_button" id="submitBnt"/>
+                        <input type="button" value="重置" class="reset_botton" id="resetBtn" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+     <script type="text/javascript">
+         $(function () {
+        	 <#if loginFlag??>
+	 			$.post("common/testjson.json");
+	 		</#if>
+	 		$('#submitBnt').click(function(){
+	 			var account = $("#account").val();
+	 			var password = $("#password").val();
+	 			if(account == '' || account == null){
+	 				$.messager.alert("提示","账号不能为空","info");
+	 				return;
+	 			}
+	 			if(password == '' || password == null){
+	 				$.messager.alert("提示","密码不能为空","info");
+	 				return;
+	 			}
+	 			$('#form').submit();
+	 		});
+	 		$('#resetBtn').click(function(){
+	 			$('#form').form("reset");
+	 		});
+       });
+    </script>
+ </body>
+</html>

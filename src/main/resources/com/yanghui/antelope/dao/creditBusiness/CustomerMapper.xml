@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanghui.antelope.dao.creditBusiness.CustomerMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.yanghui.antelope.domain.creditBusiness.Customer">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="identity_card" property="identityCard" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="account_manager" property="accountManager" />
+		<result column="source" property="source" />
+		<result column="home_address" property="homeAddress" />
+		<result column="native_place" property="nativePlace" />
+		<result column="address" property="address" />
+		<result column="marriage_status" property="marriageStatus" />
+		<result column="come_shenzhen_date" property="comeShenzhenDate" />
+		<result column="type" property="type" />
+		<result column="credit_report" property="creditReport" />
+		<result column="flow_file" property="flowFile" />
+		<result column="remark" property="remark" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_by" property="updateBy" />
+		<result column="update_time" property="updateTime" />
+		<result column="yn" property="yn" />
+		
+		<result column="accountManagerName" property="accountManagerName"/>
+		<result column="createByName" property="createByName"/>
+		<result column="updateByName" property="updateByName"/>
+	</resultMap>
+	
+	<select id="getPage" resultMap="BaseResultMap">
+		select c.*,u1.name as accountManagerName,u2.name as createByName,u3.name as updateByName
+		from td_customer c join user u1 on c.account_manager = u1.id
+		join user u2 on c.create_by = u2.id join user u3 on c.update_by = u3.id 
+		<where>
+			<if test="name != null and name != ''"> and c.name = #{name}</if>
+			<if test="identityCard != null and identityCard != ''"> and c.identity_card = #{identityCard}</if>
+			<if test="phoneNumber != null and phoneNumber != ''"> and c.phone_number = #{phoneNumber}</if>
+			<if test="phoneNumber != null and phoneNumber != ''"> and c.phone_number = #{phoneNumber}</if>
+			<if test="accountManager != null and accountManager != ''"> and c.account_manager = #{accountManager}</if>
+			<if test="source != null and source != ''"> and c.source = #{source}</if>
+			<if test="comeShenzhenDate != null and comeShenzhenDate != ''"> and c.come_shenzhen_date = #{comeShenzhenDate}</if>
+			and c.yn = 1
+		</where>
+	</select>
+</mapper>

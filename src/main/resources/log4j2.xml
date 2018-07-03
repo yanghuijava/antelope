@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <appenders>
+    
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout charset="utf-8" pattern="%d %-5p %t %c.%M:%L - %m%n" />
+        </Console>
+
+        <RollingFile name="FILE" fileName="@log.path@/antelope.log" append="true"
+                     filePattern="@log.path@/antelope.%d{yyyy-MM-dd}.log">
+            <PatternLayout charset="utf-8" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5p [%c][%M:%L] - %m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <!-- 打印事务 -->
+        <logger name="org.springframework" additivity="true">
+            <level value="ERROR" />
+        </logger>
+        <!-- 打印Sql -->
+        <logger name="com.dazong.config.dao" additivity="true">
+            <level value="ERROR" />
+        </logger>
+
+        <!-- 打印sql语句的配置 -->
+        <logger name="com.ibatis" additivity="true">
+            <level value="ERROR" />
+        </logger>
+        <logger name="java.sql.Connection" additivity="true">
+            <level value="INFO" />
+        </logger>
+        <logger name="java.sql.Statement" additivity="true">
+            <level value="INFO" />
+        </logger>
+        <logger name="java.sql.PreparedStatement" additivity="true">
+            <level value="INFO" />
+        </logger>
+        <logger name="java.sql.ResultSet" additivity="true">
+            <level value="INFO" />
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE"/>
+        </root>
+    </loggers>
+</configuration>

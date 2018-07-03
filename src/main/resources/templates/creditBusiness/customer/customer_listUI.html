@@ -1,0 +1,107 @@
+<#include "/common/head.html">
+<div data-options="region:'north',border:false" style="height:120px;padding:20px 5px 0px 5px;">
+	<div class="easyui-panel" style="padding:5px;">
+        <a id="query${rand}" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-search'">查询</a>
+    	<a id="reset${rand}" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'">重置</a>
+    </div>
+	<div class="easyui-panel" style="padding:5px;border-top: none;">
+    	<table >
+			<tr>
+				<th>姓名：</th><td><input class="easyui-textbox" type="text" id="query_name${rand}"></input></td>
+				<th>身份证：</th><td><input class="easyui-textbox" type="text" id="query_identityCard${rand}"></input></td>
+				<th>手机：</th><td><input class="easyui-numberbox" type="text" id="query_phoneNumber${rand}"></input><br/></td>
+			</tr>
+			<tr>
+			</tr>
+	    </table>
+	</div>
+</div>
+<div data-options="region:'center',border:false" style="padding:5px 5px 5px 5px;">
+	<table id="customer-dg"></table>
+</div>
+<script type="text/javascript">
+	var customerFileDlg = $("#customer_file_dlg");
+	$(function(){
+		var dg = $('#customer-dg');
+		dg.datagrid({
+			url: 'customer/list.json',
+		    fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+				{title: '姓名', field: 'name', width:80},
+				{title: '身份证号', field: 'identityCard', width:150},
+				{title: '手机号码', field: 'phoneNumber', width:90},
+				{title: '客户经理', field: 'accountManagerName', width:80},
+				{title: '客户来源', field: 'source', width:80},
+				{title: '家庭住址', field: 'homeAddress', width:120},
+				{title: '籍贯', field: 'nativePlace', width:80},
+				{title: '住址', field: 'address', width:120},
+				{title: '婚姻状况', field: 'marriageStatusName', width:60},
+				{title: '来深时间', field: 'comeShenzhenDate', width:80},
+				{title: '客户类别', field: 'typeName', width:80},
+				/*{title: '征信报告', field: 'creditReport', width:100},
+				{title: '流水附件', field: 'flowFile', width:100},*/
+				{title: '录入人', field: 'createByName', width:80},
+				{title: '录入时间', field: 'createTime', width:130}
+		    ]],
+		    toolbar:[
+		    	{text:'录入客户',iconCls:'icon-add',handler:add},
+				{text:'删除',iconCls:'icon-remove',handler:del},
+				{text:'查看详情',iconCls:'icon-search',handler:lookDetail},
+		    ]
+		});
+		
+		function add(){
+			location.replace("customerInput/indexUI.html");
+		}
+		
+		function del(){
+			deleteRecord(dg,"customer/delete.json");
+		}
+		
+		function lookDetail(){
+			var selectRow = dg.datagrid('getSelected');
+			if(selectRow == null){
+				$.messager.alert('提示',"请选择您要查看的行！",'warning');
+				return;
+			}
+			location.replace("customerInput/customerDetailsUI.html?from=customer-dg-page&customerId=" + selectRow.id);
+			/* customerFileDlg.dialog({
+			    title: '查看文件',
+			    width: 400,
+			    height: 200,
+			    closed: false,
+			    cache: false,
+			    href: 'customer/fileUI.html?id=' + selectRow.id,
+			    modal: true,
+			    iconCls:"icon-search",
+			    buttons: [{
+		            text:'取消',
+		            iconCls:'icon-cancel',
+		            handler:function(){
+		            	customerFileDlg.dialog('close');
+		            }
+			    }]
+			}); */
+		}
+		
+		$('#reset${rand}').click(function(){
+			$("#query_name${rand}").textbox('clear');
+			$("#query_identityCard${rand}").textbox('clear');
+			$("#query_phoneNumber${rand}").textbox('clear');
+		});
+		$('#query${rand}').click(function(){
+			var queryParams = dg.datagrid("options").queryParams;
+			queryParams.name = $("#query_name${rand}").textbox('getValue');
+			queryParams.identityCard = $('#query_identityCard${rand}').textbox('getValue');
+			queryParams.phoneNumber = $("#query_phoneNumber${rand}").numberbox('getValue');
+			dg.datagrid("reload");
+		});
+	});
+</script>
+<#include "/common/foot.html">

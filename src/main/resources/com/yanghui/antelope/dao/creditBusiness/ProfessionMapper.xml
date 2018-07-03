@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanghui.antelope.dao.creditBusiness.ProfessionMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.yanghui.antelope.domain.creditBusiness.Profession">
+		<id column="id" property="id" />
+		<result column="customer_id" property="customerId" />
+		<result column="company_name" property="companyName" />
+		<result column="company_nature" property="companyNature" />
+		<result column="telephone" property="telephone" />
+		<result column="company_address" property="companyAddress" />
+		<result column="dept_name" property="deptName" />
+		<result column="position" property="position" />
+		<result column="working_life" property="workingLife" />
+		<result column="month_income" property="monthIncome" />
+		<result column="payday" property="payday" />
+		<result column="remark" property="remark" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_by" property="updateBy" />
+		<result column="update_time" property="updateTime" />
+		<result column="yn" property="yn" />
+	</resultMap>
+
+</mapper>

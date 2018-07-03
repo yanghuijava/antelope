@@ -1,0 +1,32 @@
+<#include "/common/head.html">
+<div style="padding:20px 5px 0px 5px;">
+	<table>
+		<#if creditReportPath??>
+			<tr>
+				<td>
+					<a href="${creditReportPath}">${creditReportName}</a>
+				</td>
+			</tr>
+		<#else>
+			<tr>
+				<td>
+					无征信报告,请先上传
+				</td>
+			</tr>
+		</#if>
+		<#if flowFilePath??>
+			<tr>
+				<td>
+					<a href="${flowFilePath}">${flowFileName}</a>
+				</td>
+			</tr>
+		<#else>
+			<tr>
+				<td>
+					无流水附件,请先上传
+				</td>
+			</tr>
+		</#if>
+	</table>
+</div>
+<#include "/common/foot.html">
