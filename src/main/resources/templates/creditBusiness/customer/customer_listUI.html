@@ -53,7 +53,10 @@
 		    	{text:'录入客户',iconCls:'icon-add',handler:add},
 				{text:'删除',iconCls:'icon-remove',handler:del},
 				{text:'查看详情',iconCls:'icon-search',handler:lookDetail},
-		    ]
+		    ],
+		    onDblClickRow:function(index,row){
+		    	location.replace("customerInput/customerDetailsUI.html?from=customer-dg-page&customerId=" + row.id);
+		    }
 		});
 		
 		function add(){
