@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import com.yanghui.antelope.web.tags.LinkbuttonDirective;
 import com.yanghui.antelope.web.tags.ToolbarDirective;
 import com.yanghui.antelope.web.tags.TreeViewDirective;
 
@@ -19,10 +20,13 @@ public class FreemarkerConfig {
 	private TreeViewDirective treeViewDirective;
 	@Autowired
 	private ToolbarDirective toolbarDirective;
+	@Autowired
+	private LinkbuttonDirective linkbuttonDirective;
 
 	@PostConstruct
 	public void setSharedVariable() throws TemplateModelException {
 		configuration.setSharedVariable("tree", this.treeViewDirective);
 		configuration.setSharedVariable("toolbar", this.toolbarDirective);
+		configuration.setSharedVariable("linkbutton", this.linkbuttonDirective);
 	}
 }

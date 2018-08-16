@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.yanghui.antelope.common.constant.Constant;
+import com.yanghui.antelope.common.constant.ResourceType;
 import com.yanghui.antelope.domain.system.Resource;
 import com.yanghui.antelope.domain.system.User;
 import com.yanghui.antelope.service.system.ResourceService;
@@ -43,7 +44,7 @@ public class ToolbarDirective implements TemplateDirectiveModel{
 				throw new RuntimeException("code is not empty!");
 			}
 			List<Integer> types = new ArrayList<Integer>();
-			types.add(3);
+			types.add(ResourceType.BUTTON.getType());
 			List<Resource> resourceList = null;
 			if("admin".equals(user.getAccount())){
 				resourceList = this.resourceService.getUserSubResources(null, code, types);

@@ -27,6 +27,7 @@
   		<if test="parentCode != null"> and pid in (select id from resource where code = #{parentCode})</if>
   		<if test="types != null"> and type in <foreach collection="types" item="item" open="(" separator="," close=")" >#{item}</foreach></if>
   		<if test="userId != null"> and id in(select res_id from role_resource where role_id in( select role_id from user_role where user_id = #{userId}))</if>
+  		<if test="code != null"> and code = #{code}</if>
   	</where>
   	order by index_
   </select>

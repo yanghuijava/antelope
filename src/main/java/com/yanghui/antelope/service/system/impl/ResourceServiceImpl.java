@@ -30,6 +30,18 @@ public class ResourceServiceImpl implements ResourceService{
 		param.put("types", types);
 		return this.resourceMapper.selectUserSubs(param);
 	}
+	
+	@Override
+	public Resource getUserResource(Long userId, String code) {
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("userId", userId);
+		param.put("code", code);
+		List<Resource> list = this.resourceMapper.selectUserSubs(param);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
 
 	@Override
 	public void delete(Long resId) {

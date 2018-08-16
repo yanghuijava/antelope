@@ -33,5 +33,4 @@ public interface ResourceMapper extends BaseMapper<Resource> {
     " (select r.id from role r join user_role ur on r.id = ur.role_id where ur.user_id = #{userId})")
 	@ResultMap("BaseResultMap")
 	public List<Resource> getUserAllResource(Long userId);
-
 }

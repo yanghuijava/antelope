@@ -10,4 +10,6 @@ public interface ResourceService {
 
 	public void delete(Long resId);
 
+	public Resource getUserResource(Long userId, String code);
+
 }
