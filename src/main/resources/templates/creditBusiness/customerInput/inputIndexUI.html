@@ -16,26 +16,8 @@
 				<td>
 					<input class="easyui-numberbox" data-options="required: true,validType:{length:[11,11]}" label="手机号码:" labelPosition="left" name="phoneNumber" style="width:100%;height:30px">
 				</td>
-			</tr>
-			<tr>
 				<td>
 					<input label="客户经理:" labelPosition="left" name="accountManager" id="accountManager${rand}" style="width:100%;height:30px">
-				</td>
-				<td>
-					<input class="easyui-textbox" data-options="required: true" label="客户来源:" labelPosition="left" name="source" style="width:100%;height:30px">
-				</td>
-				<td>
-					<input class="easyui-textbox" data-options="required: true" label="籍贯:" labelPosition="left" name="nativePlace" style="width:100%;height:30px">
-				</td>
-			</tr>
-			<tr>
-				<td colspan=3>
-					<input class="easyui-textbox" label="家庭住址:" labelPosition="left" name="homeAddress" style="width:100%;height:30px">
-				</td>
-			</tr>
-			<tr>
-				<td colspan=3>
-					<input class="easyui-textbox" data-options="required: true" label="住址:" labelPosition="left" name="address" style="width:100%;height:30px">
 				</td>
 			</tr>
 			<tr>
@@ -43,10 +25,25 @@
 					<input label="婚姻状况:" data-options="required: true" labelPosition="left" name="marriageStatus" id="marriageStatus${rand}" style="width:100%;height:30px">
 				</td>
 				<td>
-					<input class="easyui-datebox" data-options="required: true" label="来深时间:" labelPosition="left" name="comeShenzhenDate" style="width:100%;height:30px">
+					<input class="easyui-textbox" data-options="required: true" label="教育程度:" labelPosition="left" name="educationalLevel" style="width:100%;height:30px">
 				</td>
 				<td>
 					<input label="客户类别:" data-options="required: true" labelPosition="left" name="type" id="type${rand}" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input class="easyui-textbox" data-options="required: true" label="籍贯:" labelPosition="left" name="nativePlace" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<input class="easyui-textbox" data-options="required: true" label="户口住址:" labelPosition="left" name="homeAddress" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<input class="easyui-textbox" data-options="required: true" label="住址:" labelPosition="left" name="address" style="width:100%;height:30px">
 				</td>
 			</tr>
 			<tr>
@@ -63,7 +60,6 @@
 	</form>
 	<div style="margin:20px 0 10px 0;">
 	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" id="next${rand}" style="width:15%">下一步</a>
-       <!-- <@linkbutton code="customer_input_next_bt" name="下一步" id="next${rand}" iconCls="icon-redo" style="width:15%"/> -->
        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="cancel${rand}" style="width:15%">取消</a>
 	</div>
@@ -132,7 +128,7 @@
 		});
 		
 		$('#type${rand}').combobox({
-		    url:'combobox_data.json',
+		    /* url:'combobox_data.json', */
 		    valueField:'type',
 		    textField:'typeName',
 		    data:[{

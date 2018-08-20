@@ -12,6 +12,7 @@ import com.yanghui.antelope.domain.common.BaseMode;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -23,6 +24,7 @@ import lombok.Data;
  */
 @TableName("td_customer")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Customer extends BaseMode<Customer> {
 
     private static final long serialVersionUID = 1L;
@@ -94,6 +96,19 @@ public class Customer extends BaseMode<Customer> {
      */
 	@TableField("flow_file")
 	private String flowFile;
+	/**
+	 * 性别
+	 */
+	private Integer sex;
+	/**
+	 * 教育程度
+	 */
+	@TableField("educational_level")
+	private String educationalLevel;
+	/**
+	 * 状态
+	 */
+	private Integer status;
 	
 	@Override
 	protected Serializable pkVal() {

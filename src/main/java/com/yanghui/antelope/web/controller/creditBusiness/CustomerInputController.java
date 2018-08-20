@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.yanghui.antelope.common.constant.CustomerTypeEnum;
 import com.yanghui.antelope.common.constant.MarriageStatusEnum;
-import com.yanghui.antelope.common.utils.DateUtil;
 import com.yanghui.antelope.dao.creditBusiness.CustomerMapper;
 import com.yanghui.antelope.dao.system.UserMapper;
 import com.yanghui.antelope.domain.creditBusiness.Customer;
@@ -69,7 +68,7 @@ public class CustomerInputController extends BaseComtroller{
 		cv.setAccountManagerName(userMapper.selectById(find.getAccountManager()).getName());
 		cv.setMarriageStatusName(MarriageStatusEnum.get(find.getMarriageStatus()).getName());
 		cv.setTypeName(CustomerTypeEnum.get(find.getType()).getName());
-		cv.setComeShenzhenDateStr(DateUtil.format(find.getComeShenzhenDate(), "yyyy-MM-dd"));
+//		cv.setComeShenzhenDateStr(DateUtil.format(find.getComeShenzhenDate(), "yyyy-MM-dd"));
 		model.addAttribute("customer", cv);
 		if(!StringUtils.isEmpty(from)) {
 			model.addAttribute("from", from);

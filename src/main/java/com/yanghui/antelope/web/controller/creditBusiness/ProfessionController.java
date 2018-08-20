@@ -110,7 +110,7 @@ public class ProfessionController extends BaseComtroller{
 		return "redirect:/customerInput/indexUI.html?customerId=" + customerId;
 	}
 	/**
-	 * 下一个页面：自雇或者同行贷
+	 * 下一个页面：房产/公司
 	 * @param customerId
 	 * @return
 	 */
@@ -121,7 +121,7 @@ public class ProfessionController extends BaseComtroller{
 		if(find.getType().intValue() == CustomerTypeEnum.WORKANDBOSS.getType()) {
 			return "redirect:/business/businessUI.html?customerId=" + customerId;
 		}else {
-			return "redirect:/peerLoan/peerLoanUI.html?customerId=" + customerId;
+			return "redirect:/estate/estateUI.html?customerId=" + customerId;
 		}
 	}
 }

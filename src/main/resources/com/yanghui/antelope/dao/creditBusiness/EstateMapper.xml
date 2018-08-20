@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanghui.antelope.dao.creditBusiness.EstateMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.yanghui.antelope.domain.creditBusiness.Estate">
+		<id column="id" property="id" />
+		<result column="address" property="address" />
+		<result column="area" property="area" />
+		<result column="purchase_time" property="purchaseTime" />
+		<result column="pledge_bank" property="pledgeBank" />
+		<result column="pledge_time" property="pledgeTime" />
+		<result column="loan_term" property="loanTerm" />
+		<result column="loan_limit" property="loanLimit" />
+		<result column="monthly_supply" property="monthlySupply" />
+		<result column="proof_data_file" property="proofDataFile" />
+		<result column="remark" property="remark" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_by" property="updateBy" />
+		<result column="update_time" property="updateTime" />
+		<result column="yn" property="yn" />
+	</resultMap>
+
+</mapper>

@@ -37,5 +37,11 @@ public class CustomerVO implements Serializable {
 	
 	private String createByName;
 	private String updateByName;
-
+	
+	private Integer sex;
+	private String sexName;
+	private String educationalLevel;
+	
+	private Integer status;
+	private String statusName;
 }

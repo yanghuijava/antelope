@@ -7,13 +7,13 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.yanghui.antelope.domain.common.BaseMode;
 
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -25,6 +25,7 @@ import lombok.Data;
  */
 @TableName("td_business")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Business extends BaseMode<Business> {
 
     private static final long serialVersionUID = 1L;

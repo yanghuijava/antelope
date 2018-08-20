@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.yanghui.antelope.common.constant.CustomerStatusEnum;
 import com.yanghui.antelope.common.constant.CustomerTypeEnum;
 import com.yanghui.antelope.common.constant.MarriageStatusEnum;
+import com.yanghui.antelope.common.constant.SexEnum;
 import com.yanghui.antelope.domain.creditBusiness.Customer;
 import com.yanghui.antelope.web.vo.CustomerVO;
 import com.yanghui.antelope.web.vo.PageResult;
@@ -22,7 +24,8 @@ public class CustomerWrapper {
 			BeanUtils.copyProperties(c, cv);
 			cv.setMarriageStatusName(MarriageStatusEnum.get(c.getMarriageStatus()).getName());
 			cv.setTypeName(CustomerTypeEnum.get(c.getType()).getName());
-			
+			cv.setSexName(SexEnum.getSex(cv.getSex()).getName());
+			cv.setStatusName(CustomerStatusEnum.getStatus(cv.getStatus()).getName());
 			klist.add(cv);
 		}
 		page.setTotal(pagination.getTotal());

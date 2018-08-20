@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yanghui.antelope.common.constant.Constant;
+import com.yanghui.antelope.common.constant.CustomerStatusEnum;
 import com.yanghui.antelope.common.exception.BusinessExcption;
 import com.yanghui.antelope.common.utils.HttpKit;
+import com.yanghui.antelope.common.utils.StringUtil;
 import com.yanghui.antelope.dao.creditBusiness.CustomerMapper;
 import com.yanghui.antelope.domain.creditBusiness.Customer;
 import com.yanghui.antelope.domain.system.User;
@@ -103,6 +105,8 @@ public class CustomerController extends BaseComtroller{
 			String flowFilePath= super.upload(flowFile);
 			customer.setFlowFile(flowFilePath);
 		}
+		customer.setSex(StringUtil.getSexFromIdentityCard(customer.getIdentityCard()));
+		customer.setStatus(CustomerStatusEnum.UN_SUBMITTED.getStatus());
 		this.customerMapper.insert(customer);
 		return successWrapper().setData(customer.getId().toString());
 	}

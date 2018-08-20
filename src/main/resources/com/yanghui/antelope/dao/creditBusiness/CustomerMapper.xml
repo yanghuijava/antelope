@@ -28,6 +28,10 @@
 		<result column="accountManagerName" property="accountManagerName"/>
 		<result column="createByName" property="createByName"/>
 		<result column="updateByName" property="updateByName"/>
+		
+		<result column="sex" property="sex"/>
+		<result column="educational_level" property="educationalLevel"/>
+		<result column="status" property="status"/>
 	</resultMap>
 	
 	<select id="getPage" resultMap="BaseResultMap">

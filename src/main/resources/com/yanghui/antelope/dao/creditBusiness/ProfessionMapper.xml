@@ -21,6 +21,13 @@
 		<result column="update_by" property="updateBy" />
 		<result column="update_time" property="updateTime" />
 		<result column="yn" property="yn" />
+		
+		
+		<result column="wage_model" property="wageModel" />
+		<result column="industry" property="industry" />
+		<result column="company_size" property="companySize" />
+		<result column="social_security_years" property="socialSecurityYears" />
+		<result column="social_security_base" property="socialSecurityBase" />
 	</resultMap>
 
 </mapper>

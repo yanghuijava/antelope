@@ -28,6 +28,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = Throwable.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest request, Throwable e) throws Exception {
 		logger.error("访问：{},发生异常啦,异常信息：{}", request.getRequestURL(),e);
+		e.printStackTrace();
 		if(request.getRequestURL().indexOf(".html") > 0){
 			return renderErrorView(request, e);
 		}

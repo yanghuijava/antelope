@@ -7,7 +7,6 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yanghui.antelope.domain.common.BaseMode;
@@ -15,6 +14,7 @@ import com.yanghui.antelope.domain.common.BaseMode;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -26,6 +26,7 @@ import lombok.Data;
  */
 @TableName("td_profession")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Profession extends BaseMode<Profession> {
 
     private static final long serialVersionUID = 1L;
@@ -83,6 +84,30 @@ public class Profession extends BaseMode<Profession> {
      */
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date payday;
+	/**
+	 * 行业
+	 */
+	private String industry;
+	/**
+	 * 公司规模
+	 */
+	@TableField("company_size")
+	private String companySize;
+	/**
+	 * 社保年限
+	 */
+	@TableField("social_security_years")
+	private Integer socialSecurityYears;
+	/**
+	 * 社保基数
+	 */
+	@TableField("social_security_base")
+	private BigDecimal socialSecurityBase;
+	/**
+	 * 工资模式
+	 */
+	@TableField("wage_model")
+	private Integer wageModel;
 	
 	@Override
 	protected Serializable pkVal() {
