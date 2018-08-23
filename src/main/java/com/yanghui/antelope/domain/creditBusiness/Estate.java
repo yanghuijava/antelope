@@ -1,11 +1,15 @@
 package com.yanghui.antelope.domain.creditBusiness;
 
 import com.baomidou.mybatisplus.enums.IdType;
+import com.yanghui.antelope.domain.common.BaseMode;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
@@ -18,12 +22,17 @@ import java.io.Serializable;
  * @since 2018-08-20
  */
 @TableName("td_estate")
-public class Estate extends Model<Estate> {
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class Estate extends BaseMode<Estate> {
 
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
+	
+	@TableField("customer_id")
+	private Long customerId;
     /**
      * 地址
      */
@@ -68,150 +77,6 @@ public class Estate extends Model<Estate> {
 	@TableField("proof_data_file")
 	private String proofDataFile;
 	private String remark;
-    /**
-     * 创建人
-     */
-	@TableField("create_by")
-	private Long createBy;
-	@TableField("create_time")
-	private Date createTime;
-    /**
-     * 更新人
-     */
-	@TableField("update_by")
-	private Long updateBy;
-	@TableField("update_time")
-	private Date updateTime;
-	private Integer yn;
-
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public BigDecimal getArea() {
-		return area;
-	}
-
-	public void setArea(BigDecimal area) {
-		this.area = area;
-	}
-
-	public Date getPurchaseTime() {
-		return purchaseTime;
-	}
-
-	public void setPurchaseTime(Date purchaseTime) {
-		this.purchaseTime = purchaseTime;
-	}
-
-	public String getPledgeBank() {
-		return pledgeBank;
-	}
-
-	public void setPledgeBank(String pledgeBank) {
-		this.pledgeBank = pledgeBank;
-	}
-
-	public Date getPledgeTime() {
-		return pledgeTime;
-	}
-
-	public void setPledgeTime(Date pledgeTime) {
-		this.pledgeTime = pledgeTime;
-	}
-
-	public Integer getLoanTerm() {
-		return loanTerm;
-	}
-
-	public void setLoanTerm(Integer loanTerm) {
-		this.loanTerm = loanTerm;
-	}
-
-	public BigDecimal getLoanLimit() {
-		return loanLimit;
-	}
-
-	public void setLoanLimit(BigDecimal loanLimit) {
-		this.loanLimit = loanLimit;
-	}
-
-	public BigDecimal getMonthlySupply() {
-		return monthlySupply;
-	}
-
-	public void setMonthlySupply(BigDecimal monthlySupply) {
-		this.monthlySupply = monthlySupply;
-	}
-
-	public String getProofDataFile() {
-		return proofDataFile;
-	}
-
-	public void setProofDataFile(String proofDataFile) {
-		this.proofDataFile = proofDataFile;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public Long getCreateBy() {
-		return createBy;
-	}
-
-	public void setCreateBy(Long createBy) {
-		this.createBy = createBy;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Long getUpdateBy() {
-		return updateBy;
-	}
-
-	public void setUpdateBy(Long updateBy) {
-		this.updateBy = updateBy;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public Integer getYn() {
-		return yn;
-	}
-
-	public void setYn(Integer yn) {
-		this.yn = yn;
-	}
 
 	@Override
 	protected Serializable pkVal() {

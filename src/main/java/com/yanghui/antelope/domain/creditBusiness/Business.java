@@ -47,6 +47,34 @@ public class Business extends BaseMode<Business> {
      */
 	@TableField("setup_date")
 	private Date setupDate;
+	/**
+     * 是否公司法人 1：是 2：不是
+     */
+	private Integer corporation;
+    /**
+     * 占股
+     */
+	@TableField("share_stock")
+	private BigDecimal shareStock;
+    /**
+     * 行业类别
+     */
+	@TableField("industry_type")
+	private String industryType;
+    /**
+     * 近半年开票额
+     */
+	@TableField("half_year_ticket")
+	private BigDecimal halfYearTicket;
+    /**
+     * 年纳税额
+     */
+	private BigDecimal taxes;
+    /**
+     * 个人流水
+     */
+	@TableField("personal_water")
+	private String personalWater;
     /**
      * 员工人数
      */

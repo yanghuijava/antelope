@@ -3,6 +3,7 @@ package com.yanghui.antelope.domain.common;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @SuppressWarnings("rawtypes")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public abstract class BaseMode<T extends Model> extends Model<T>{
 	
 	private static final long serialVersionUID = -1339414159525706337L;

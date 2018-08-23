@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yanghui.antelope.common.constant.CustomerTypeEnum;
 import com.yanghui.antelope.common.exception.BusinessExcption;
 import com.yanghui.antelope.dao.creditBusiness.CustomerMapper;
 import com.yanghui.antelope.dao.creditBusiness.ProfessionMapper;
@@ -110,18 +109,19 @@ public class ProfessionController extends BaseComtroller{
 		return "redirect:/customerInput/indexUI.html?customerId=" + customerId;
 	}
 	/**
-	 * 下一个页面：房产/公司
+	 * 下一个页面：企业资料页面（职业资料------>企业资料）
 	 * @param customerId
 	 * @return
 	 */
 	@RequestMapping("/nextUI.html")
 	public String nextUI(Model model,@RequestParam(value="customerId")Long customerId) {
-		Customer find  = this.customerMapper.selectById(customerId);
-		model.addAttribute("customer", find);
-		if(find.getType().intValue() == CustomerTypeEnum.WORKANDBOSS.getType()) {
-			return "redirect:/business/businessUI.html?customerId=" + customerId;
-		}else {
-			return "redirect:/estate/estateUI.html?customerId=" + customerId;
-		}
+//		Customer find  = this.customerMapper.selectById(customerId);
+//		model.addAttribute("customer", find);
+//		if(find.getType().intValue() == CustomerTypeEnum.WORKANDBOSS.getType()) {
+//			return "redirect:/business/businessUI.html?customerId=" + customerId;
+//		}else {
+//			return "redirect:/estate/estateUI.html?customerId=" + customerId;
+//		}
+		return "redirect:/business/businessUI.html?customerId=" + customerId;
 	}
 }

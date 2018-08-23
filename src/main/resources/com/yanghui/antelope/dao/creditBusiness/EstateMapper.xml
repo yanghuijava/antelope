@@ -5,6 +5,7 @@
 	<!-- 通用查询映射结果 -->
 	<resultMap id="BaseResultMap" type="com.yanghui.antelope.domain.creditBusiness.Estate">
 		<id column="id" property="id" />
+		<result column="customer_id" property="customerId" />
 		<result column="address" property="address" />
 		<result column="area" property="area" />
 		<result column="purchase_time" property="purchaseTime" />
@@ -21,5 +22,11 @@
 		<result column="update_time" property="updateTime" />
 		<result column="yn" property="yn" />
 	</resultMap>
-
+	
+	<select id="getPage" resultMap="BaseResultMap" parameterType="map">
+		select * from td_estate
+		<where>
+			<if test="customerId != null"> and customer_id = #{customerId}</if>
+		</where>
+	</select>
 </mapper>

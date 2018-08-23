@@ -43,19 +43,19 @@ public class CustomerInputController extends BaseComtroller{
 		return PRIX + "inputIndexUI";
 	}
 	/**
-	 * 下一个页面：职业资料页面或者自雇页面
+	 * 下一个页面：职业资料页面（客户资料页面------>职业资料页面）
 	 * @param model
 	 * @param customerId
 	 * @return
 	 */
 	@RequestMapping("/nextUI.html")
 	public String nextUI(@RequestParam("customerId")Long customerId){
-		Customer find  = this.customerMapper.selectById(customerId);
-		if(find.getType().intValue() == CustomerTypeEnum.WORK.getType()){
-			return "redirect:/profession/professionUI.html?customerId=" + customerId;
-		}else if(find.getType().intValue() == CustomerTypeEnum.BOSS.getType()){
-			return "redirect:/business/businessUI.html?customerId=" + customerId;
-		}
+//		Customer find  = this.customerMapper.selectById(customerId);
+//		if(find.getType().intValue() == CustomerTypeEnum.WORK.getType()){
+//			return "redirect:/profession/professionUI.html?customerId=" + customerId;
+//		}else if(find.getType().intValue() == CustomerTypeEnum.BOSS.getType()){
+//			return "redirect:/business/businessUI.html?customerId=" + customerId;
+//		}
 		return "redirect:/profession/professionUI.html?customerId=" + customerId;
 	}
 	

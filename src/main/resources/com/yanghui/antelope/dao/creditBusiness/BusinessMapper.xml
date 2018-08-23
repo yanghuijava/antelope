@@ -9,6 +9,12 @@
 		<result column="company_name" property="companyName" />
 		<result column="setup_date" property="setupDate" />
 		<result column="employees_num" property="employeesNum" />
+		<result column="corporation" property="corporation" />
+		<result column="share_stock" property="shareStock" />
+		<result column="industry_type" property="industryType" />
+		<result column="half_year_ticket" property="halfYearTicket" />
+		<result column="taxes" property="taxes" />
+		<result column="personal_water" property="personalWater" />
 		<result column="compa_address" property="compaAddress" />
 		<result column="area" property="area" />
 		<result column="turnover" property="turnover" />
@@ -22,5 +28,12 @@
 		<result column="update_time" property="updateTime" />
 		<result column="yn" property="yn" />
 	</resultMap>
+	
+	<select id="getPage" resultMap="BaseResultMap" parameterType="map">
+		select * from td_business 
+		<where>
+			<if test="customerId != null"> and customer_id = #{customerId}</if>
+		</where>
+	</select>
 
 </mapper>

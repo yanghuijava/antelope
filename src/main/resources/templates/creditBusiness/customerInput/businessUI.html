@@ -7,15 +7,16 @@
 	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="skip${rand}" style="width:15%">跳过</a>
 	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
 	</div>
-	<#if customer??>
-		<input type="hidden" name="customerId" id="customerId${rand}" value="${customer.id}">
-	</#if>
 </div>
 <div data-options="region:'center',border:false" style="padding:5px 5px 5px 5px;">
 	<table id="business-add-dg${rand}"></table>
 </div>
-<div id="business_add_dlg" class="easyui-dialog" style="width:800px;height:300px;" data-options="iconCls:'icon-add',closed:true">
-	<form id="profession_form" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+<div id="business_add_dlg${rand}" class="easyui-dialog" style="width:800px;height:300px;" data-options="iconCls:'icon-add',closed:true">
+	<form id="business_form${rand}" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+	    <#if customer??>
+			<input type="hidden" name="customerId" id="customerId${rand}" value="${customer.id}">
+		</#if>
+		<input type="hidden" name="id">
 	    <table>
 	    	<tr>
 	    		<td colspan="3">
@@ -27,31 +28,26 @@
 					<input class="easyui-datebox" data-options="required: true" label="成立时间:" labelPosition="left" name="setupDate" style="width:100%;height:30px">
 				</td>
 				<td>
-					<input class="easyui-textbox" data-options="required: true" label="员工人数:" labelPosition="left" name="employeesNum" style="width:100%;height:30px">
+					<input label="是否法人:" labelPosition="left" name="corporation" id="corporation${rand}" style="width:100%;height:30px">
 				</td>
 				<td>
-					<input class="easyui-numberbox" data-options="required: true" label="公司电话:" labelPosition="left" name="telephone" style="width:100%;height:30px">
+					<input class="easyui-numberbox" data-options="required: true" label="占股:" labelPosition="left" name="shareStock" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="easyui-textbox" data-options="required: true" label="行业类别:" labelPosition="left" name="industryType" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-numberbox" label="近半年开票额:" data-options="required: true,min:0,precision:2" labelPosition="left" name="halfYearTicket" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-numberbox" data-options="required: true,min:0,precision:2" label="年纳税:" labelPosition="left" name="taxes" style="width:100%;height:30px">
 				</td>
 			</tr>
 			<tr>
 				<td colspan="3">
-					<input class="easyui-textbox" label="公司地址:" data-options="required: true" labelPosition="left" name="companyAddress" style="width:100%;height:30px">
-				</td>
-			<th>
-			<tr>
-				<td>
-					<input class="easyui-textbox" data-options="required: true" label="面积:" labelPosition="left" name="area" style="width:100%;height:30px">
-				</td>
-				<td>
-					<input class="easyui-numberbox" label="营业额:" data-options="required: true,min:0,precision:2" labelPosition="left" name="turnover" style="width:100%;height:30px">
-				</td>
-				<td>
-					<input class="easyui-numberbox" data-options="required: true,min:0,precision:2" label="租金:" labelPosition="left" name="rent" style="width:100%;height:30px">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					<input class="easyui-textbox" data-options="required: true" label="固定设备:" labelPosition="left" name="fixedEquipment" style="width:100%;height:30px">
+					<input class="easyui-textbox" data-options="required: true" label="个人流水:" labelPosition="left" name="personalWater" style="width:100%;height:30px">
 				</td>
 			</tr>
 	    </table>
@@ -64,6 +60,8 @@
 		var finishBtn = $("#finish${rand}");
 		var skipBtn = $("#skip${rand}");
 		var dg = $("#business-add-dg${rand}");
+		var dlg = $("#business_add_dlg${rand}");
+		var form = $("#business_form${rand}");
 		
 		backBtn.click(function(){
 			location.replace("business/lastPageUI.html?customerId=${customer.id}");
@@ -71,9 +69,15 @@
 		skipBtn.click(function(){
 			location.replace("business/nextUI.html?customerId=${customer.id}");
 		});
+		nextBtn.click(function(){
+			location.replace("business/nextUI.html?customerId=${customer.id}");
+		});
+		finishBtn.click(function(){
+			location.replace("customerInput/customerDetailsUI.html?customerId=${customer.id}");
+		});
 		
 		dg.datagrid({
-			url: 'business/list.json',
+			url: 'business/list.json?customerId=${customer.id}',
 			fit: true,
 		    rownumbers: true,
 		    pagination:true,
@@ -84,14 +88,42 @@
     			{field:'id',title:'序号',hidden:true},
     			{field:'companyName',title:'公司名称',width:200},
     	        {field:'setupDate',title:'成立时间',width:100},
-	  	        {field:'employeesNum',title:'员工人数',width:80},
-	   	     	{field:'compaAddress',title:'公司地址',width:200},
-    			{field:'area',title:'公司面积',width:80},
-    			{field:'turnover',title:'营业额',width:80},
-	   	     	{field:'fixedEquipment',title:'固定设备',width:200},
-	   	     	{field:'rent',title:'租金',width:80},
-	   			{field:'remark',title:'备注',width:80},
-		    ]]
+	  	        {field:'corporationName',title:'是否法人',width:80},
+	   	     	{field:'shareStock',title:'占股(%)',width:100},
+    			{field:'industryType',title:'行业类别',width:120},
+    			{field:'halfYearTicket',title:'近半年开票额(元)',width:120},
+	   	     	{field:'taxes',title:'年纳税(元)',width:120},
+	   	     	{field:'personalWater',title:'个人流水',width:120},
+		    ]],
+		    toolbar:[
+		    	{text:'新增',iconCls:'icon-add',handler:add},
+		    	{text:'更新',iconCls:'icon-edit',handler:edit},
+				{text:'删除',iconCls:'icon-remove',handler:del},
+		    ],
+		});
+		
+		function add(){
+			dialogSave(dlg,"business/save.json",dg,form);
+		}
+		function edit(){
+			dialogEdit(dlg,"business/update.json",dg,form,"business/load.json");
+		}
+		function del(){
+			deleteRecord(dg,"business/delete.json");
+		}
+		
+		$('#corporation${rand}').combobox({
+		    valueField:'corporation',
+		    textField:'corporationName',
+		    data:[{
+		        "corporation":1,
+		        "corporationName":"是"
+		    },{
+		    	"corporation":2,
+		        "corporationName":"否"
+		    }],
+		    panelHeight:'auto',
+		    required: true
 		});
 	});
 </script>

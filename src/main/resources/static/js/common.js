@@ -53,7 +53,7 @@ function getTopWinow(){
 
 function dialogSave(dialogObj,url,dgObj,formObj){
 	dialogObj.dialog({
-		title: '新增客户',
+		title: '新增',
 		closed: false,
         buttons: [{
             text:'保存',
@@ -103,7 +103,7 @@ function dialogEdit(dialogObj,url,dgObj,formObj,formLoadUrl){
 	}
 	formObj.form("load",formLoadUrl + "?id=" + selectRow.id);
 	dialogObj.dialog({
-		title: '编辑客户',
+		title: '编辑',
 		closed: false,
         buttons: [{
             text:'保存',

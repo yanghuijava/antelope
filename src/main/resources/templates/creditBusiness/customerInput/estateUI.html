@@ -1,10 +1,22 @@
 <#include "/common/head.html">
-<div data-options="region:'north',border:false" style="height:400px;padding:20px 5px 0px 5px;">
+<div data-options="region:'north',border:false" style="height:120px;padding:20px 5px 0px 5px;">
 	<div><h3>房产资料</h3></div>
-	<form id="profession_form" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+	<div style="margin:20px 0 10px 0;">
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" id="back${rand}" style="width:15%">上一步</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" id="next${rand}" style="width:15%">下一步</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="skip${rand}" style="width:15%">跳过</a>
+       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
+	</div>
+</div>
+<div data-options="region:'center',border:false" style="padding:5px 5px 5px 5px;">
+	<table id="estate-add-dg${rand}"></table>
+</div>
+<div id="estate_add_dlg${rand}" class="easyui-dialog" style="width:800px;height:300px;" data-options="iconCls:'icon-add',closed:true">
+	<form id="estate_form${rand}" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
 	    <#if customer??>
 			<input type="hidden" name="customerId" id="customerId${rand}" value="${customer.id}">
 		</#if>
+		<input type="hidden" name="id">
 	    <table>
 	    	<tr>
 	    		<td colspan="3">
@@ -48,12 +60,6 @@
 			</tr>
 	    </table>
 	</form>
-	<div style="margin:20px 0 10px 0;">
-	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" id="back${rand}" style="width:15%">上一步</a>
-	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" id="next${rand}" style="width:15%">下一步</a>
-	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="skip${rand}" style="width:15%">跳过</a>
-       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
-	</div>
 </div>
 <script type="text/javascript">
 	$(function(){
@@ -61,73 +67,59 @@
 		var nextBtn = $("#next${rand}");
 		var finishBtn = $("#finish${rand}");
 		var skipBtn = $("#skip${rand}");
-		var form = $("#profession_form");
+		var dg = $("#estate-add-dg${rand}");
+		var dlg = $("#estate_add_dlg${rand}");
+		var form = $("#estate_form${rand}");
 		
 		backBtn.click(function(){
-			location.replace("profession/lastPageUI.html?customerId=${customer.id}");
-		});
-		skipBtn.click(function(){
-			location.replace("profession/nextUI.html?customerId=${customer.id}");
-		});
-		
-		<#if profession??>
-			form.form("load","profession/load.json?id=${profession.id}");
-		</#if>
-		
-		finishBtn.click(function(){
-			formSubmit("finishBtn");
+			location.replace("estate/lastPageUI.html?customerId=${customer.id}");
 		});
 		nextBtn.click(function(){
-			formSubmit("nextBtn");
+			location.replace("estate/nextUI.html?customerId=${customer.id}");
+		});
+		skipBtn.click(function(){
+			location.replace("estate/nextUI.html?customerId=${customer.id}");
+		});
+		finishBtn.click(function(){
+			location.replace("customerInput/customerDetailsUI.html?customerId=${customer.id}");
 		});
 		
-		function formSubmit(type){
-			$.messager.progress();
-			form.form('submit',{
-				<#if profession??>
-        	    	url:"profession/update.json",
-        	    <#else>
-					url:"profession/save.json",
-        	    </#if>
-        	    onSubmit: function(){
-        	    	var isValid = $(this).form('validate');
-        			if (!isValid){
-        				$.messager.progress('close');
-        			}
-        			return isValid;
-        	    },
-        	    success:function(data){
-        	    	$.messager.progress('close');
-        	    	var obj = eval('(' + data + ')');
-        	    	if(obj.success){
-        	    		showMessager(obj.message);
-        	    		if(type == "nextBtn"){
-        	    			location.replace("profession/nextUI.html?customerId=${customer.id}");
-        	    		}else if(type == "finishBtn"){
-        	    			location.replace("customerInput/customerDetailsUI.html?customerId=${customer.id}");
-        	    		}
-        	    	}else {
-        	    		$.messager.alert('提示',obj.message,'error');
-        	    	}
-        	    }
-        	});
-		}
+		dg.datagrid({
+			url: 'estate/list.json?customerId=${customer.id}',
+			fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+    			{field:'address',title:'房产地址',width:200},
+    	        {field:'area',title:'面积',width:100},
+	  	        {field:'purchaseTime',title:'购买时间',width:100},
+	   	     	{field:'pledgeBank',title:'质押银行',width:100},
+    			{field:'pledgeTime',title:'质押时间',width:100},
+    			{field:'loanTerm',title:'贷款年限',width:90},
+	   	     	{field:'loanLimit',title:'贷款额度',width:120},
+	   	     	{field:'monthlySupply',title:'月供',width:120},
+	   	     	{field:'remark',title:'备注',width:200},
+		    ]],
+		    toolbar:[
+		    	{text:'新增',iconCls:'icon-add',handler:add},
+		    	{text:'更新',iconCls:'icon-edit',handler:edit},
+				{text:'删除',iconCls:'icon-remove',handler:del},
+		    ],
+		});
 		
-	$('#wageModel${rand}').combobox({
-	    valueField:'wageModel',
-	    textField:'wageModelName',
-	    data:[{
-	        "wageModel":1,
-	        "wageModelName":"代发"
-	    },{
-	    	"wageModel":2,
-	        "wageModelName":"转账"
-	    },{
-	    	"wageModel":3,
-	        "wageModelName":"现金"
-	    }],
-	    panelHeight:'auto'
-	});
+		function add(){
+			dialogSave(dlg,"estate/save.json",dg,form);
+		}
+		function edit(){
+			dialogEdit(dlg,"estate/update.json",dg,form,"business/load.json");
+		}
+		function del(){
+			deleteRecord(dg,"estate/delete.json");
+		}
 	});
 </script>
 <#include "/common/foot.html">

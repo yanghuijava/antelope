@@ -26,7 +26,7 @@ import com.yanghui.antelope.web.vo.Condition;
 import com.yanghui.antelope.web.vo.CustomerVO;
 import com.yanghui.antelope.web.vo.PageResult;
 import com.yanghui.antelope.web.vo.Wrapper;
-import com.yanghui.antelope.web.wrapper.CustomerWrapper;
+import com.yanghui.antelope.web.wrapper.CommonWrapper;
 
 /**
  * <p>
@@ -69,7 +69,7 @@ public class CustomerController extends BaseComtroller{
 	@ResponseBody
 	public PageResult<CustomerVO> list(Condition condition) throws Exception{
 		List<Customer> data = this.customerMapper.getPage(condition.getPagination(),condition.getMap());
-		return CustomerWrapper.createPage(condition.getPagination(), data);
+		return CommonWrapper.createCustomerPage(condition.getPagination(), data);
 	}
 	/**
 	 * 客户资料保存

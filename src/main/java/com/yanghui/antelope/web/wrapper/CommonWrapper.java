@@ -10,13 +10,17 @@ import com.yanghui.antelope.common.constant.CustomerStatusEnum;
 import com.yanghui.antelope.common.constant.CustomerTypeEnum;
 import com.yanghui.antelope.common.constant.MarriageStatusEnum;
 import com.yanghui.antelope.common.constant.SexEnum;
+import com.yanghui.antelope.domain.creditBusiness.Business;
 import com.yanghui.antelope.domain.creditBusiness.Customer;
+import com.yanghui.antelope.domain.creditBusiness.Estate;
+import com.yanghui.antelope.web.vo.BusinessVO;
 import com.yanghui.antelope.web.vo.CustomerVO;
+import com.yanghui.antelope.web.vo.EstateVO;
 import com.yanghui.antelope.web.vo.PageResult;
 
-public class CustomerWrapper {
+public class CommonWrapper {
 	
-	public static PageResult<CustomerVO> createPage(Pagination pagination,List<Customer> data){
+	public static PageResult<CustomerVO> createCustomerPage(Pagination pagination,List<Customer> data){
 		PageResult<CustomerVO> page = new PageResult<CustomerVO>();
 		List<CustomerVO> klist = new ArrayList<CustomerVO>();
 		for(Customer c : data){
@@ -30,6 +34,33 @@ public class CustomerWrapper {
 		}
 		page.setTotal(pagination.getTotal());
 		page.setRows(klist);
+		return page;
+	}
+
+	public static PageResult<BusinessVO> createBusinessPage(Pagination pagination, List<Business> data) {
+		PageResult<BusinessVO> page = new PageResult<>();
+		List<BusinessVO> list = new ArrayList<>();
+		for(Business b : data) {
+			BusinessVO bv = new BusinessVO();
+			BeanUtils.copyProperties(b, bv);
+			bv.setCorporationName(b.getCorporation() == 1 ? "是" : "否");
+			list.add(bv);
+		}
+		page.setTotal(pagination.getTotal());
+		page.setRows(list);
+		return page;
+	}
+
+	public static PageResult<EstateVO> createEstatePage(Pagination pagination, List<Estate> data) {
+		PageResult<EstateVO> page = new PageResult<>();
+		List<EstateVO> list = new ArrayList<>();
+		for(Estate e : data) {
+			EstateVO ev = new EstateVO();
+			BeanUtils.copyProperties(e, ev);
+			list.add(ev);
+		}
+		page.setTotal(pagination.getTotal());
+		page.setRows(list);
 		return page;
 	}
 }
