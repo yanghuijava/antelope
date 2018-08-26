@@ -7,6 +7,9 @@
 	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="skip${rand}" style="width:15%">跳过</a>
        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
 	</div>
+	<#if customer??>
+		<input type="hidden" name="customerId_hidden" id="customerId_hidden${rand}" value="${customer.id}">
+	</#if>
 </div>
 <div data-options="region:'center',border:false" style="padding:5px 5px 5px 5px;">
 	<table id="estate-add-dg${rand}"></table>
@@ -112,13 +115,21 @@
 		});
 		
 		function add(){
+			setCustomerId();
 			dialogSave(dlg,"estate/save.json",dg,form);
 		}
 		function edit(){
-			dialogEdit(dlg,"estate/update.json",dg,form,"business/load.json");
+			dialogEdit(dlg,"estate/update.json",dg,form,"estate/load.json");
 		}
 		function del(){
 			deleteRecord(dg,"estate/delete.json");
+		}
+		
+		function setCustomerId(){
+			<#if customer??>
+				var cid = customerId = $("#customerId_hidden${rand}").val();
+				$("#customerId${rand}").val(cid);
+			</#if>
 		}
 	});
 </script>

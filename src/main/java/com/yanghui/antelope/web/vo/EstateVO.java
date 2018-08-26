@@ -15,6 +15,7 @@ public class EstateVO implements Serializable{
 	private Long id;
 	private String address;
 	private BigDecimal area;
+	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	private Date purchaseTime;
 	private String pledgeBank;
 	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")

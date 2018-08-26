@@ -13,10 +13,12 @@ import com.yanghui.antelope.common.constant.SexEnum;
 import com.yanghui.antelope.domain.creditBusiness.Business;
 import com.yanghui.antelope.domain.creditBusiness.Customer;
 import com.yanghui.antelope.domain.creditBusiness.Estate;
+import com.yanghui.antelope.domain.creditBusiness.Policy;
 import com.yanghui.antelope.web.vo.BusinessVO;
 import com.yanghui.antelope.web.vo.CustomerVO;
 import com.yanghui.antelope.web.vo.EstateVO;
 import com.yanghui.antelope.web.vo.PageResult;
+import com.yanghui.antelope.web.vo.PolicyVO;
 
 public class CommonWrapper {
 	
@@ -58,6 +60,19 @@ public class CommonWrapper {
 			EstateVO ev = new EstateVO();
 			BeanUtils.copyProperties(e, ev);
 			list.add(ev);
+		}
+		page.setTotal(pagination.getTotal());
+		page.setRows(list);
+		return page;
+	}
+
+	public static PageResult<PolicyVO> createPolicyPage(Pagination pagination, List<Policy> data) {
+		PageResult<PolicyVO> page = new PageResult<>();
+		List<PolicyVO> list = new ArrayList<>();
+		for(Policy p : data) {
+			PolicyVO pv = new PolicyVO();
+			BeanUtils.copyProperties(p, pv);
+			list.add(pv);
 		}
 		page.setTotal(pagination.getTotal());
 		page.setRows(list);

@@ -1,0 +1,113 @@
+<#include "/common/head.html">
+<div data-options="region:'north',border:false" style="height:120px;padding:20px 5px 0px 5px;">
+	<div><h3>保险资料</h3></div>
+	<div style="margin:20px 0 10px 0;">
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" id="back${rand}" style="width:15%">上一步</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" id="next${rand}" style="width:15%">下一步</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="skip${rand}" style="width:15%">跳过</a>
+       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
+	</div>
+	<#if customer??>
+		<input type="hidden" name="customerId_hidden" id="customerId_hidden${rand}" value="${customer.id}">
+	</#if>
+</div>
+<div data-options="region:'center',border:false" style="padding:5px 5px 5px 5px;">
+	<table id="policy-add-dg${rand}"></table>
+</div>
+<div id="policy_add_dlg${rand}" class="easyui-dialog" style="width:800px;height:300px;" data-options="iconCls:'icon-add',closed:true">
+	<form id="policy_form${rand}" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+	    <#if customer??>
+			<input type="hidden" name="customerId" id="customerId${rand}" value="${customer.id}">
+		</#if>
+		<input type="hidden" name="id">
+	    <table>
+	    	<tr>
+	    		<td colspan="3">
+					<input class="easyui-textbox" data-options="required: true" label="保险公司:" labelPosition="left" name="insuranceCompany" style="width:100%;height:30px">
+				</td>
+	    	</tr>
+	    	<tr>
+	    		<td>
+					<input class="easyui-textbox" data-options="required: true" label="保险名称:" labelPosition="left" name="insuranceName" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-datebox" data-options="required: true" label="购买时间:" labelPosition="left" name="buyTime" style="width:100%;height:30px">
+				</td>
+				<td>
+					<input class="easyui-numberbox" data-options="required: true,precision:2" label="购买价格:" labelPosition="left" name="buyPrice" style="width:100%;height:30px">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input class="easyui-textbox" label="备注:" labelPosition="left" name="remark" style="width:100%;height:30px">
+				</td>
+			</tr>
+	    </table>
+	</form>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var backBtn = $("#back${rand}");
+		var nextBtn = $("#next${rand}");
+		var finishBtn = $("#finish${rand}");
+		var skipBtn = $("#skip${rand}");
+		var dg = $("#policy-add-dg${rand}");
+		var dlg = $("#policy_add_dlg${rand}");
+		var form = $("#policy_form${rand}");
+		
+		backBtn.click(function(){
+			location.replace("policy/lastPageUI.html?customerId=${customer.id}");
+		});
+		nextBtn.click(function(){
+			location.replace("policy/nextUI.html?customerId=${customer.id}");
+		});
+		skipBtn.click(function(){
+			location.replace("policy/nextUI.html?customerId=${customer.id}");
+		});
+		finishBtn.click(function(){
+			location.replace("customerInput/customerDetailsUI.html?customerId=${customer.id}");
+		});
+		
+		dg.datagrid({
+			url: 'policy/list.json?customerId=${customer.id}',
+			fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+    			{field:'insuranceCompany',title:'保险公司',width:200},
+    	        {field:'insuranceName',title:'保险名称',width:200},
+	  	        {field:'buyTime',title:'购买时间',width:100},
+	   	     	{field:'buyPrice',title:'购买价格(元)',width:100},
+	   	     	{field:'remark',title:'备注',width:200},
+		    ]],
+		    toolbar:[
+		    	{text:'新增',iconCls:'icon-add',handler:add},
+		    	{text:'更新',iconCls:'icon-edit',handler:edit},
+				{text:'删除',iconCls:'icon-remove',handler:del},
+		    ],
+		});
+		
+		function add(){
+			setCustomerId();
+			dialogSave(dlg,"policy/save.json",dg,form);
+		}
+		function edit(){
+			dialogEdit(dlg,"policy/update.json",dg,form,"policy/load.json");
+		}
+		function del(){
+			deleteRecord(dg,"policy/delete.json");
+		}
+		
+		function setCustomerId(){
+			<#if customer??>
+				var cid = customerId = $("#customerId_hidden${rand}").val();
+				$("#customerId${rand}").val(cid);
+			</#if>
+		}
+	});
+</script>
+<#include "/common/foot.html">
