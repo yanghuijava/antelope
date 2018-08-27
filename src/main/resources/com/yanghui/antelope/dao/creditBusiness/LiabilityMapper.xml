@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanghui.antelope.dao.creditBusiness.LiabilityMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.yanghui.antelope.domain.creditBusiness.Liability">
+		<id column="id" property="id" />
+		<result column="customer_id" property="customerId" />
+		<result column="credit_loan" property="creditLoan" />
+		<result column="credit_card_number" property="creditCardNumber" />
+		<result column="credit_card_amount" property="creditCardAmount" />
+		<result column="credit_card_half_use" property="creditCardHalfUse" />
+		<result column="credit_card_current_use" property="creditCardCurrentUse" />
+		<result column="not_small_loan" property="notSmallLoan" />
+		<result column="query_times_text" property="queryTimesText" />
+		<result column="credit_investigation" property="creditInvestigation" />
+		<result column="remark" property="remark" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="update_by" property="updateBy" />
+		<result column="update_time" property="updateTime" />
+		<result column="yn" property="yn" />
+	</resultMap>
+
+</mapper>
