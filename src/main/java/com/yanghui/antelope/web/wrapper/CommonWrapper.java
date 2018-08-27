@@ -14,11 +14,13 @@ import com.yanghui.antelope.domain.creditBusiness.Business;
 import com.yanghui.antelope.domain.creditBusiness.Customer;
 import com.yanghui.antelope.domain.creditBusiness.Estate;
 import com.yanghui.antelope.domain.creditBusiness.Policy;
+import com.yanghui.antelope.domain.creditBusiness.Vehicle;
 import com.yanghui.antelope.web.vo.BusinessVO;
 import com.yanghui.antelope.web.vo.CustomerVO;
 import com.yanghui.antelope.web.vo.EstateVO;
 import com.yanghui.antelope.web.vo.PageResult;
 import com.yanghui.antelope.web.vo.PolicyVO;
+import com.yanghui.antelope.web.vo.VehicleVO;
 
 public class CommonWrapper {
 	
@@ -73,6 +75,19 @@ public class CommonWrapper {
 			PolicyVO pv = new PolicyVO();
 			BeanUtils.copyProperties(p, pv);
 			list.add(pv);
+		}
+		page.setTotal(pagination.getTotal());
+		page.setRows(list);
+		return page;
+	}
+
+	public static PageResult<VehicleVO> createVehiclePage(Pagination pagination, List<Vehicle> data) {
+		PageResult<VehicleVO> page = new PageResult<>();
+		List<VehicleVO> list = new ArrayList<>();
+		for(Vehicle v : data) {
+			VehicleVO vv = new VehicleVO();
+			BeanUtils.copyProperties(v, vv);
+			list.add(vv);
 		}
 		page.setTotal(pagination.getTotal());
 		page.setRows(list);
