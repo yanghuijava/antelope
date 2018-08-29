@@ -35,7 +35,7 @@ public class LiabilityController extends BaseComtroller{
 	private CustomerMapper customerMapper;
 	
 	/**
-	 * 职业页面
+	 * 负债页面
 	 * @param model
 	 * @param customerId
 	 * @param liabilityId

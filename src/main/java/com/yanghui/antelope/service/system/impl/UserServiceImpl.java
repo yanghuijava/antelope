@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
 		user.setResourceList(resourceList);
 		User u = this.queryUserAllMsg(user.getId());
 		user.setRoleNames(u.getRoleNames());
+		user.setRoleCodes(u.getRoleCodes());
 		return user;
 	}
 
@@ -125,12 +126,17 @@ public class UserServiceImpl implements UserService {
 	public User queryUserAllMsg(Long id) {
 		User user = this.userMapper.selectById(id);
 		List<UserRole> urList = this.userRoleMapper.selectRoleByUserId(id);
-		StringBuffer sb = new StringBuffer();
+		StringBuffer roleNames = new StringBuffer();
+		StringBuffer roleCodes = new StringBuffer();
 		for(UserRole ur : urList){
-			sb.append(this.roleMapper.selectById(ur.getRoleId()).getName()).append(",");
+			Role r = this.roleMapper.selectById(ur.getRoleId());
+			roleNames.append(r.getName()).append(",");
+			roleCodes.append(r.getCode()).append(",");
 		}
-		sb.deleteCharAt(sb.length() - 1);
-		user.setRoleNames(sb.toString());
+		roleNames.deleteCharAt(roleNames.length() - 1);
+		user.setRoleNames(roleNames.toString());
+		roleCodes.deleteCharAt(roleCodes.length() - 1);
+		user.setRoleCodes(roleCodes.toString());
 		return user;
 	}
 }

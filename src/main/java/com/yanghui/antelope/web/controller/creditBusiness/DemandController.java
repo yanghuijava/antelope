@@ -18,7 +18,7 @@ import com.yanghui.antelope.web.vo.Wrapper;
 
 /**
  * <p>
- * 客户职业资料 前端控制器
+ * 客户需求资料 前端控制器
  * </p>
  *
  * @author 杨辉
@@ -35,7 +35,7 @@ public class DemandController extends BaseComtroller{
 	private CustomerMapper customerMapper;
 	
 	/**
-	 * 职业页面
+	 * 客户需求
 	 * @param model
 	 * @param customerId
 	 * @param professionId
@@ -104,6 +104,6 @@ public class DemandController extends BaseComtroller{
 	 */
 	@RequestMapping("/nextUI.html")
 	public String nextUI(Model model,@RequestParam(value="customerId")Long customerId) {
-		return "redirect:/business/businessUI.html?customerId=" + customerId;
+		return "redirect:/programme/programmeUI.html?customerId=" + customerId;
 	}
 }

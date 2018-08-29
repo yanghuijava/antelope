@@ -47,6 +47,8 @@ public class User extends BaseMode<User> {
 	private String roleIds;
 	@TableField(exist=false)
 	private String roleNames;
+	@TableField(exist=false)
+	private String roleCodes;
 	
 	@Override
 	protected Serializable pkVal() {
