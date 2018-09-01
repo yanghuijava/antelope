@@ -50,6 +50,8 @@ public class Programme extends BaseMode<Programme> {
      */
 	@TableField("follow_up_proposal")
 	private String followUpProposal;
+	@TableField(exist=false)
+	private Integer mark;
 
 	@Override
 	protected Serializable pkVal() {

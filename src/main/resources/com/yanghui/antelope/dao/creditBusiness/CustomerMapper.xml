@@ -46,6 +46,7 @@
 			<if test="accountManager != null and accountManager != ''"> and c.account_manager = #{accountManager}</if>
 			<if test="source != null and source != ''"> and c.source = #{source}</if>
 			<if test="comeShenzhenDate != null and comeShenzhenDate != ''"> and c.come_shenzhen_date = #{comeShenzhenDate}</if>
+			<if test="status != null and status != ''">and c.status = #{status}</if>
 			and c.yn = 1
 		</where>
 	</select>

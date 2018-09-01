@@ -44,12 +44,12 @@ public class DemandController extends BaseComtroller{
 	@RequestMapping("/demandUI.html")
 	public String professionUI(Model model,
 			@RequestParam(value="customerId",required=false)Long customerId,
-			@RequestParam(value="professionId",required=false)Long professionId) {
+			@RequestParam(value="demandId",required=false)Long demandId) {
 		if(customerId != null) {
 			Customer findC  = this.customerMapper.selectById(customerId);
 			model.addAttribute("customer", findC);
-			if(professionId != null) {
-				Demand demand = this.demandMapper.selectById(professionId);
+			if(demandId != null) {
+				Demand demand = this.demandMapper.selectById(demandId);
 				model.addAttribute("demand", demand);
 			}else {
 				Demand demand = this.demandMapper.getByCustomerId(findC.getId());

@@ -1,7 +1,7 @@
 <#include "/common/head.html">
-<div data-options="region:'north',border:false" style="height:600px;padding:20px 5px 0px 5px;">
+<div data-options="region:'north',border:false" style="height:800px;padding:20px 5px 0px 5px;">
 	<div><h3>客户资料详情</h3></div>
-	<div id="customerDetailTabs" class="easyui-tabs" data-options="border:true" style="width:100%;height:350px;">
+	<div id="customerDetailTabs" class="easyui-tabs" data-options="border:true" style="width:100%;height:400px;">
         <div title="客户基本资料" style="overflow:auto;width:100%;padding:20px;">
         	<form id="" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
     		<table>
@@ -52,29 +52,248 @@
 						<input class="easyui-textbox" label="流水附件:" value="${customer.name}" readonly="readonly" labelPosition="left" style="width:300px;height:30px">
 					</td>
 				</tr>
+				<tr>
+					<td colspan=3>
+						<input class="easyui-textbox" label="状态:" value="${customer.statusName}" readonly="readonly" labelPosition="left" style="width:300px;height:30px">
+					</td>
+				</tr>
 		    </table>
 		    </form>
         </div>
-        <div title="职业资料" style="overflow:auto;padding:20px;display:none;">
+        <div title="职业资料" style="overflow:auto;width:100%;padding:20px;">
+        	<div>
+        	<form id="" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+			    <table>
+			    	<tr>
+			    		<td colspan="3">
+							<input class="easyui-textbox" readonly="readonly" label="单位名称:" 
+								labelPosition="left" value="${profession.companyName}" style="width:100%;height:30px">
+						</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+							<input class="easyui-textbox" readonly="readonly" label="行业:" 
+								labelPosition="left" value="${profession.industry}" style="width:100%;height:30px">
+						</td>
+						<td>
+							<input class="easyui-textbox" readonly="readonly" label="公司规模:" 
+								labelPosition="left" value="${profession.companySize}" style="width:100%;height:30px">
+						</td>
+			    		<td>
+							<input class="easyui-textbox" readonly="readonly" label="部门:" 
+								labelPosition="left" value="${profession.deptName}" style="width:100%;height:30px">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input class="easyui-textbox" readonly="readonly" label="职位:" 
+								labelPosition="left" value="${profession.position}" style="width:100%;height:30px">
+						</td>
+						<td>
+							<input class="easyui-textbox" label="工资:" readonly="readonly" 
+								labelPosition="left" value="${profession.wageModelName}" style="width:100%;height:30px">
+						</td>
+						<td>
+							<input class="easyui-textbox" label="税前工资:" readonly="readonly"
+								labelPosition="left" value="${profession.monthIncome}" style="width:100%;height:30px">
+						</td>
+					<tr>
+					<tr>
+						<td>
+							<input class="easyui-textbox" label="社保年限:" readonly="readonly" labelPosition="left" 
+								value="${profession.socialSecurityYears}" style="width:100%;height:30px">
+						</td>
+						<td>
+							<input class="easyui-textbox" readonly="readonly" label="社保基数:" 
+								labelPosition="left" value="${profession.socialSecurityBase}" style="width:100%;height:30px">
+						</td>
+					</tr>
+			    </table>
+			</form>
+			</div>
+			<div style="padding:20px 5px 5px 5px;">
+				<@linkbutton code="reedit_profession" name="重新编辑职业资料" iconCls="icon-edit" id="reedit_profession" style="width:15%"/>
+			</div>
         </div>
-        <div title="自雇资料" style="overflow:auto;padding:20px;display:none;">
-        </div>
-        <div title="同行贷资料" style="overflow:auto;padding:20px;display:none;">
-        </div>
-        <div title="联系人资料" style="overflow:auto;padding:20px;display:none;">
+        <div title="企业资料" style="overflow:auto;padding:20px;display:none;height:auto;">
+        	<table id="business-detail-dg${rand}"></table>
+        	<div style="padding:5px 0px 0px 0px;">
+				<@linkbutton code="reedit_business" name="重新编辑企业资料" iconCls="icon-edit" id="reedit_business" style="width:15%"/>
+			</div>
         </div>
         <div title="房产资料" style="overflow:auto;padding:20px;display:none;">
+        	<table id="estate-detail-dg${rand}"></table>
+        	<div style="padding:5px 0px 0px 0px;">
+				<@linkbutton code="reedit_estate" name="重新编辑房产资料" iconCls="icon-edit" id="reedit_estate" style="width:15%"/>
+			</div>
+        </div>
+        <div title="保险资料" style="overflow:auto;padding:20px;display:none;">
+        	<table id="policy-detail-dg${rand}"></table>
+        	<div style="padding:5px 0px 0px 0px;">
+				<@linkbutton code="reedit_policy" name="重新编辑保险资料" iconCls="icon-edit" id="reedit_policy" style="width:15%"/>
+			</div>
         </div>
         <div title="车辆资料" style="overflow:auto;padding:20px;display:none;">
+        	<table id="vehicle-detail-dg${rand}"></table>
+        	<div style="padding:5px 0px 0px 0px;">
+				<@linkbutton code="reedit_vehicle" name="重新编辑车辆资料" iconCls="icon-edit" id="reedit_vehicle" style="width:15%"/>
+			</div>
         </div>
-        <div title="信用贷款资料" style="overflow:auto;padding:20px;display:none;">
+        <div title="负债资料" style="overflow:auto;padding:20px;display:none;">
+        	<div>
+        	<form id="liability-detail-form" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+			    <table>
+			    	<tr>
+			    		<td>
+			    			银行或者金融公司信用贷款：
+			    		</td>
+			    		<td>
+							<input class="easyui-textbox" name="creditLoan" readonly="readonly" style="width:600px;height:30px">
+						</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			信用卡张数：
+			    		</td>
+			    		<td>
+							<input class="easyui-numberbox" name="creditCardNumber" readonly="readonly" style="width:600px;height:30px">
+						</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			信用卡总额度：
+			    		</td>
+			    		<td>
+							<input class="easyui-numberbox" name="creditCardAmount" readonly="readonly" style="width:600px;height:30px">
+						</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			信用卡近半年使用额度：
+			    		</td>
+						<td>
+							<input class="easyui-numberbox" name="creditCardHalfUse" readonly="readonly" style="width:600px;height:30px">
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    			信用卡当前使用额度：
+			    		</td>
+						<td>
+							<input class="easyui-numberbox" data-options="precision:2" readonly="readonly" name="creditCardCurrentUse" 
+								style="width:600px;height:30px">
+						</td>
+					<tr>
+					<tr>
+						<td>
+			    			未结清小额贷款：
+			    		</td>
+						<td colspan="2">
+							<input class="easyui-numberbox" data-options="precision:2" readonly="readonly" name="notSmallLoan" 
+								style="width:600px;height:30px">
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    			近2个月查询次数简单说明：
+			    		</td>
+						<td colspan="3">
+							<input class="easyui-textbox" name="queryTimesText" readonly="readonly" style="width:600px;height:30px">
+						</td>
+					</tr>
+					<tr>
+						<td>
+			    			征信：
+			    		</td>
+						<td colspan="3">
+							<input class="easyui-textbox" name="creditInvestigation" readonly="readonly" style="width:600px;height:30px">
+						</td>
+					</tr>
+			    </table>
+			</form>
+			</div>
+			<div style="padding:20px 5px 5px 5px;">
+				<@linkbutton code="reedit_liability" name="重新编辑负债资料" iconCls="icon-edit" id="reedit_liability" style="width:15%"/>
+			</div>
         </div>
-        <div title="信用卡资料" style="overflow:auto;padding:20px;display:none;">
+        <div title="客户需求" style="overflow:auto;padding:20px;display:none;">
+        	<div>
+        		<form id="demand-detail-form" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+				    <table>
+				    	<tr>
+				    		<td>
+								<input class="easyui-numberbox" data-options="precision:2" label="实际额度:" labelPosition="left" 
+									name="amount" style="width:400px;height:30px" readonly="readonly">
+							</td>
+				    	</tr>
+				    	<tr>
+				    		<td>
+								<input class="easyui-numberbox" data-options="precision:6" label="利息要求:" labelPosition="left" 
+									name="interest" style="width:400px;height:30px" readonly="readonly">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input label="贷款方式:" data-options="" labelPosition="left" name="loanMethod" 
+									id="loanMethod${rand}" style="width:400px;height:30px" readonly="readonly">
+							</td>
+						<tr>
+						<tr>
+							<td>
+								<input class="easyui-textbox" data-options="" label="其他要求:" labelPosition="left" 
+									name="other" style="width:400px;height:30px" readonly="readonly">
+							</td>
+						</tr>
+				    </table>
+				</form>
+        	</div>
+        	<div style="padding:20px 5px 5px 5px;">
+				<@linkbutton code="reedit_demand" name="重新编辑客户需求" iconCls="icon-edit" id="reedit_demand" style="width:15%"/>
+			</div>
+        </div>
+        <div title="客户方案" style="overflow:auto;padding:20px;display:none;">
+        	<form id="programme-detail-form" method="post" enctype="multipart/form-data" style="padding:20px 5px 0px 5px;">
+			    <table>
+			    	<tr>
+			    		<td>
+			    			客户经理建议：
+			    		</td>
+			    		<td>
+							<textarea name="customerManagerProposal" rows="5" cols="80"></textarea>
+						</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			主管方案：
+			    		</td>
+			    		<td>
+							<textarea name="directorProgramme" rows="5" cols="80"></textarea>
+						</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			批款结果：
+			    		</td>
+			    		<td>
+							<textarea name="appropriationResult" rows="5" cols="80"></textarea>
+						</td>
+			    	</tr>
+			    	<tr>
+			    		<td>
+			    			跟进建议：
+			    		</td>
+			    		<td>
+							<textarea name="followUpProposal" rows="5" cols="80"></textarea>
+						</td>
+			    	</tr>
+			    </table>
+			</form>
         </div>
     </div>
 	<div style="margin:20px 0 10px 0;">
 		<@linkbutton code="customer_reedit" name="重新编辑" iconCls="icon-edit" id="reedit${rand}" style="width:15%"/>
-	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="search${rand}" style="width:15%">返回查询列表</a>
+		<@linkbutton code="customer_audit" name="客户方案" iconCls="icon-edit" id="audit${rand}" style="width:15%"/>
+	    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="search${rand}" style="width:15%">返回查询列表</a>
 	</div>
 </div>
 
@@ -82,12 +301,160 @@
 	$(function(){
 		var reeditBtn = $("#reedit${rand}");
 		var searchBtn = $("#search${rand}");
+		var reeditProfessionBtn = $("#reedit_profession");
+		var reeditBusinessBtn = $("#reedit_business");
+		var reeditEstateBtn = $("#reedit_estate");
+		var reeditPlicyBtn = $("#reedit_policy");
+		var reeditVehicleBtn = $("#reedit_vehicle");
+		var reeditLiabilityBtn = $("#reedit_liability");
+		var reeditDemandBtn = $("#reedit_demand");
+		var auditBtn = $("#audit${rand}");
+		
+		var businessDg = $("#business-detail-dg${rand}");
+		var estateDg = $("#estate-detail-dg${rand}");
+		var policyDg = $("#policy-detail-dg${rand}");
+		var vehicleDg = $("#vehicle-detail-dg${rand}");
+		
+		var liabilityForm = $("#liability-detail-form");
+		liabilityForm.form("load","liability/load.json?id=${liability.id}");
+		
+		var demandForm = $("#demand-detail-form");
+		demandForm.form("load","demand/load.json?id=${demand.id}");
+		
+		var programmeForm = $("#programme-detail-form");
+		programmeForm.form("load","programme/load.json?id=${programme.id}");
+		
 		searchBtn.click(function(){
 			location.replace("customer/listUI.html");
 		});
 		reeditBtn.click(function(){
 			location.replace("customerInput/indexUI.html?customerId=${customer.id}");
 		});
+		
+		reeditProfessionBtn.click(function(){
+			location.replace("profession/professionUI.html?customerId=${customer.id}");
+		});
+		reeditBusinessBtn.click(function(){
+			location.replace("business/businessUI.html?customerId=${customer.id}");
+		});
+		reeditEstateBtn.click(function(){
+			location.replace("estate/estateUI.html?customerId=${customer.id}");
+		});
+		reeditPlicyBtn.click(function(){
+			location.replace("policy/policyUI.html?customerId=${customer.id}");
+		});
+		reeditVehicleBtn.click(function(){
+			location.replace("vehicle/vehicleUI.html?customerId=${customer.id}");
+		});
+		reeditLiabilityBtn.click(function(){
+			location.replace("liability/liabilityUI.html?customerId=${customer.id}");
+		});
+		reeditDemandBtn.click(function(){
+			location.replace("demand/demandUI.html?customerId=${customer.id}");
+		});
+		auditBtn.click(function(){
+			location.replace("programme/programmeUI.html?customerId=${customer.id}");
+		});
+		
+		businessDg.datagrid({
+			url: 'business/list.json?customerId=${customer.id}',
+			fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+    			{field:'companyName',title:'公司名称',width:200},
+    	        {field:'setupDate',title:'成立时间',width:100},
+	  	        {field:'corporationName',title:'是否法人',width:80},
+	   	     	{field:'shareStock',title:'占股(%)',width:100},
+    			{field:'industryType',title:'行业类别',width:120},
+    			{field:'halfYearTicket',title:'近半年开票额(元)',width:120},
+	   	     	{field:'taxes',title:'年纳税(元)',width:120},
+	   	     	{field:'personalWater',title:'个人流水',width:120},
+		    ]]
+		});
+		
+		estateDg.datagrid({
+			url: 'estate/list.json?customerId=${customer.id}',
+			fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+    			{field:'address',title:'房产地址',width:200},
+    	        {field:'area',title:'面积',width:100},
+	  	        {field:'purchaseTime',title:'购买时间',width:100},
+	   	     	{field:'pledgeBank',title:'质押银行',width:100},
+    			{field:'pledgeTime',title:'质押时间',width:100},
+    			{field:'loanTerm',title:'贷款年限',width:90},
+	   	     	{field:'loanLimit',title:'贷款额度',width:120},
+	   	     	{field:'monthlySupply',title:'月供',width:120},
+	   	     	{field:'remark',title:'备注',width:200},
+		    ]]
+		});
+		
+		policyDg.datagrid({
+			url: 'policy/list.json?customerId=${customer.id}',
+			fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+    			{field:'insuranceCompany',title:'保险公司',width:200},
+    	        {field:'insuranceName',title:'保险名称',width:200},
+	  	        {field:'buyTime',title:'购买时间',width:100},
+	   	     	{field:'buyPrice',title:'购买价格(元)',width:100},
+	   	     	{field:'remark',title:'备注',width:200},
+		    ]]
+		});
+		
+		vehicleDg.datagrid({
+			url: 'vehicle/list.json?customerId=${customer.id}',
+			fit: true,
+		    rownumbers: true,
+		    pagination:true,
+		    pageSize:10,
+		    singleSelect: true,
+		    columns:[[
+    			{field:'ck',checkbox:'true',width:50},
+    			{field:'id',title:'序号',hidden:true},
+    			{field:'brand',title:'品牌',width:120},
+    	        {field:'carNumber',title:'车牌号',width:100},
+	  	        {field:'buyTime',title:'购买时间',width:100},
+	  	      	{field:'buyPrice',title:'购买价格',width:100},
+	  	        {field:'buyMothod',title:'购买方式',width:100},
+	   	     	{field:'pledgeBank',title:'质押银行',width:100},
+    			{field:'pledgeTime',title:'质押时间',width:100},
+    			{field:'monthlySupply',title:'月供',width:100},
+    			{field:'vehicleRegistration',title:'车辆登记证',width:100},
+	   	     	{field:'remark',title:'备注',width:200},
+		    ]]
+		});
+	});
+	
+	$('#loanMethod${rand}').combobox({
+	    valueField:'loanMethod',
+	    textField:'loanMethodName',
+	    data:[{
+	        "loanMethod":1,
+	        "loanMethodName":"信贷"
+	    },{
+	    	"loanMethod":2,
+	        "loanMethodName":"抵押"
+	    },{
+	    	"loanMethod":3,
+	        "loanMethodName":"转按"
+	    }],
+	    panelHeight:'auto'
 	});
 </script>
 <#include "/common/foot.html">

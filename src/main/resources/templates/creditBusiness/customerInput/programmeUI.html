@@ -5,6 +5,10 @@
 	    <#if customer??>
 			<input type="hidden" name="customerId" id="customerId${rand}" value="${customer.id}">
 		</#if>
+		<#if programme??>
+			<input type="hidden" name="id" value="${programme.id}">
+		</#if>
+		<input type="hidden" name="mark" id="mark${rand}" value="1">
 	    <table>
 	    	<#if Session.user.roleCodes?contains("kehujingli") || Session.user.roleCodes?contains("administrator")>
 		    	<tr>
@@ -36,6 +40,7 @@
 					</td>
 		    	</tr>
 	    	</#if>
+	    	<#if Session.user.roleCodes?contains("kehujingli") || Session.user.roleCodes?contains("administrator")>
 	    	<tr>
 	    		<td>
 	    			跟进建议：
@@ -44,17 +49,20 @@
 					<textarea name="followUpProposal" rows="5" cols="80"></textarea>
 				</td>
 	    	</tr>
+	    	</#if>
 	    </table>
 	</form>
 	<div style="margin:20px 0 10px 0;">
-	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" id="back${rand}" style="width:15%">上一步</a>
-       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="finish${rand}" style="width:15%">完成</a>
+		<@linkbutton code="programme_last_bt" name="上一步" iconCls="icon-undo" id="back${rand}" style="width:15%"/>
+        <@linkbutton code="programme_finishplan_bt" name="完成方案" iconCls="icon-ok" id="finishplan${rand}" style="width:15%"/>
+		<@linkbutton code="programme_rejectplan_bt" name="拒绝方案" iconCls="icon-no" id="rejectplan${rand}" style="width:15%"/>
 	</div>
 </div>
 <script type="text/javascript">
 	$(function(){
 		var backBtn = $("#back${rand}");
-		var finishBtn = $("#finish${rand}");
+		var finishplanBtn = $("#finishplan${rand}");
+		var rejectplanBtn = $("#rejectplan${rand}");
 		var form = $("#programme_form");
 		
 		backBtn.click(function(){
@@ -65,18 +73,18 @@
 			form.form("load","programme/load.json?id=${programme.id}");
 		</#if>
 		
-		finishBtn.click(function(){
-			formSubmit("finishBtn");
+		finishplanBtn.click(function(){
+			formSubmit(1);
+		});
+		rejectplanBtn.click(function(){
+			formSubmit(2);
 		});
 		
 		function formSubmit(type){
 			$.messager.progress();
+			$("#mark${rand}").val(type);
 			form.form('submit',{
-				<#if programme??>
-        	    	url:"programme/update.json",
-        	    <#else>
-					url:"programme/save.json",
-        	    </#if>
+        	    url:"programme/plan.json?mark=" + type,
         	    onSubmit: function(){
         	    	var isValid = $(this).form('validate');
         			if (!isValid){
@@ -89,11 +97,7 @@
         	    	var obj = eval('(' + data + ')');
         	    	if(obj.success){
         	    		showMessager(obj.message);
-        	    		if(type == "nextBtn"){
-        	    			location.replace("programme/nextUI.html?customerId=${customer.id}");
-        	    		}else if(type == "finishBtn"){
-        	    			location.replace("customerInput/customerDetailsUI.html?customerId=${customer.id}");
-        	    		}
+        	    		location.replace("customerInput/customerDetailsUI.html?customerId=${customer.id}");
         	    	}else {
         	    		$.messager.alert('提示',obj.message,'error');
         	    	}

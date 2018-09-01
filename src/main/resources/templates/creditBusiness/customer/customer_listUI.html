@@ -88,6 +88,28 @@
 			}); */
 		}
 		
+		function submit(){
+			var selectRow = dg.datagrid('getSelected');
+			if(selectRow == null ||selectRow.length == 0) {
+				$.messager.alert('提示', '请选择需要提交的行！','warning');
+				return;
+			}
+			var param = {};
+			param.id = selectRow.id;
+			$.messager.confirm('警告', '你确定要提交此记录吗?', function(r){
+				if (r){
+					$.post("customer/submit.json",param,function(data){
+						if(data.success) {
+							showMessager(data.message);
+							dg.datagrid("reload");
+						}else {
+							$.messager.alert('错误', data.message,'error');
+						}
+					},'json');
+				}
+			});
+		}
+		
 		$('#reset${rand}').click(function(){
 			$("#query_name${rand}").textbox('clear');
 			$("#query_identityCard${rand}").textbox('clear');

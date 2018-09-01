@@ -2,6 +2,8 @@ package com.yanghui.antelope.web.controller.creditBusiness;
 import java.io.File;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,8 +69,9 @@ public class CustomerController extends BaseComtroller{
 	}
 	@RequestMapping("/list.json")
 	@ResponseBody
-	public PageResult<CustomerVO> list(Condition condition) throws Exception{
-		List<Customer> data = this.customerMapper.getPage(condition.getPagination(),condition.getMap());
+	public PageResult<CustomerVO> list(Condition condition,HttpServletRequest request) throws Exception{
+		User user = (User)request.getSession().getAttribute(Constant.USER_SESSION_NAME);
+		List<Customer> data = this.customerService.getPage(condition.getPagination(),condition.getMap(),user);
 		return CommonWrapper.createCustomerPage(condition.getPagination(), data);
 	}
 	/**
@@ -162,6 +165,13 @@ public class CustomerController extends BaseComtroller{
 	@ResponseBody
 	public Wrapper<?> delete(@RequestParam("id") Long id){
 		this.customerService.deleteCustomer(id);
+		return successWrapper();
+	}
+	
+	@RequestMapping("/submit.json")
+	@ResponseBody
+	public Wrapper<?> submit(@RequestParam("id") Long id){
+		this.customerService.submitCustomer(id);
 		return successWrapper();
 	}
 }

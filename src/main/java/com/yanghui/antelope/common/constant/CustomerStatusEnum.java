@@ -6,7 +6,8 @@ public enum CustomerStatusEnum {
 	UN_AUDITED(101,"待审核"),
 	AUDITED_FAIL(102,"审核不通过"),
 	UN_APPROPRIATION(103,"待批款"), 
-	LOAN(104,"已放款")
+	LOAN(104,"已放款"),
+	REJECT_LOAN(105,"拒绝放款"),
 	;
 	
 	private int status;
