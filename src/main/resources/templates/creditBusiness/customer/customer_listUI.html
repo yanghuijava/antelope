@@ -48,12 +48,7 @@
 				{title: '录入人', field: 'createByName', width:80},
 				{title: '录入时间', field: 'createTime', width:130}
 		    ]],
-		    toolbar:[
-		    	{text:'录入客户',iconCls:'icon-add',handler:add},
-				{text:'删除',iconCls:'icon-remove',handler:del},
-				{text:'查看详情',iconCls:'icon-search',handler:lookDetail},
-		    ],
-		    /* <@toolbar code="customer_manager"/>, */
+		    <@toolbar code="customer_manager"/>,
 		    onDblClickRow:function(index,row){
 		    	location.replace("customerInput/customerDetailsUI.html?from=customer-dg-page&customerId=" + row.id);
 		    }

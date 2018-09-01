@@ -16,9 +16,9 @@
 				<td>
 					<input class="easyui-numberbox" data-options="required: true,validType:{length:[11,11]}" label="手机号码:" labelPosition="left" name="phoneNumber" style="width:100%;height:30px">
 				</td>
-				<td>
+				<!-- <td>
 					<input label="客户经理:" labelPosition="left" name="accountManager" id="accountManager${rand}" style="width:100%;height:30px">
-				</td>
+				</td> -->
 			</tr>
 			<tr>
 				<td>
@@ -120,12 +120,12 @@
         	});
 		}
 		
-		$("#accountManager${rand}").combobox({
+		/* $("#accountManager${rand}").combobox({
 		    url:'user/getAccountManager.json',
 		    valueField:'accountManager',
 		    textField:'name',
 		    panelHeight:'auto'
-		});
+		}); */
 		
 		$('#type${rand}').combobox({
 		    /* url:'combobox_data.json', */
