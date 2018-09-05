@@ -1,6 +1,7 @@
 package com.yanghui.antelope.web.controller.system;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,8 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private DataSource dataSource;
 	
 	@RequestMapping("/common/testjson.json")
 	@ResponseBody
@@ -65,6 +68,7 @@ public class LoginController {
 		Object account = condition.getMap().get("account");
 		Object password = condition.getMap().get("password");
 		logger.info("登入，账号：{}，密码：{}",account,password);
+		logger.info("start:" + this.dataSource);
 		if(account == null || "".equals(account.toString().trim())) {
 			model.addAttribute("errorMsg", "登入账号不能为空！");
 			model.addAttribute("targerUrl", condition.getMap().get("targerUrl"));
@@ -93,6 +97,7 @@ public class LoginController {
 		if(condition.getMap().get("targerUrl") != null && !"".equals(condition.getMap().get("targerUrl"))) {
 			return "redirect:" + condition.getMap().get("targerUrl").toString();
 		}
+		logger.info("end:" + this.dataSource);
 		return "redirect:/index.html";
 	}
 	
