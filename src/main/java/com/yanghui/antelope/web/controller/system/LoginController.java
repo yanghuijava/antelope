@@ -64,6 +64,7 @@ public class LoginController {
 	public String executeLogin(Model model,Condition condition,HttpServletRequest request){
 		Object account = condition.getMap().get("account");
 		Object password = condition.getMap().get("password");
+		logger.info("登入，账号：{}，密码：{}",account,password);
 		if(account == null || "".equals(account.toString().trim())) {
 			model.addAttribute("errorMsg", "登入账号不能为空！");
 			model.addAttribute("targerUrl", condition.getMap().get("targerUrl"));
