@@ -56,7 +56,7 @@ public abstract class BaseComtroller {
 			String uploadFileName = uploadFilePath.substring(
 					uploadFilePath.lastIndexOf('\\') + 1,
 					uploadFilePath.indexOf('.'));
-			// 截取上传文件的后缀
+			//截取上传文件的后缀
 			String uploadFileSuffix = uploadFilePath.substring(
 					uploadFilePath.indexOf('.') + 1, uploadFilePath.length());
 			
