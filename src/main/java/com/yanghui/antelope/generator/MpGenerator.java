@@ -43,17 +43,17 @@ public class MpGenerator {
 			}
 		});
 		dsc.setDriverName("com.mysql.jdbc.Driver");
-		dsc.setUsername("root");
-		dsc.setPassword("root");
-		dsc.setUrl("jdbc:mysql://localhost:3306/antelope?characterEncoding=utf8");
+		dsc.setUsername("mps");
+		dsc.setPassword("123456");
+		dsc.setUrl("jdbc:mysql://192.168.143.97:3306/prvsys?characterEncoding=utf8");
 		mpg.setDataSource(dsc);
 		
 		 // 策略配置
         StrategyConfig strategy = new StrategyConfig();
     // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix(new String[] {"td_",});// 此处可以修改为您的表前缀
+        strategy.setTablePrefix(new String[] {"sys_",});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "td_programme" }); // 需要生成的表
+        strategy.setInclude(new String[] { "sys_resource","sys_role","sys_role_resource","sys_user_app"}); // 需要生成的表
 //         strategy.setExclude(new String[]{"td_customer"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -77,9 +77,9 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
-        pc.setEntity("com.yanghui.antelope.domain.creditBusiness");
-        pc.setMapper("com.yanghui.antelope.dao.creditBusiness");
-        pc.setXml("com.yanghui.antelope.dao.creditBusiness");
+        pc.setEntity("com.idreamsky.sf.prvsys.domain.entity");
+        pc.setMapper("com.idreamsky.sf.prvsys.dao");
+        pc.setXml("com.idreamsky.sf.prvsys.dao");
 //        pc.setModuleName("system");
         mpg.setPackageInfo(pc);
         
