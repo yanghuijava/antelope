@@ -51,4 +51,13 @@ public class ResourceServiceImpl implements ResourceService{
 		}
 		this.resourceMapper.deleteById(resId);
 	}
+
+	@Override
+	public boolean isLeaf(Resource res) {
+		List<Resource> resources = this.resourceMapper.queryByPid(res.getId().intValue());
+		if(resources.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
 }

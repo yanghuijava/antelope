@@ -63,7 +63,7 @@ public class ResourceController extends BaseComtroller{
 				tdChild.setId(res.getId().intValue());
 				tdChild.setText(res.getName());
 				tdChild.setState(Constant.TREE_STATE_OPEN);
-				if(hasResource != null && hasResource.contains(res) /*&& this.resourceService.isLeaf(res)*/) {
+				if(hasResource != null && hasResource.contains(res) && this.resourceService.isLeaf(res)) {
 					tdChild.setChecked(true);
 				}
 				treeChildrens.add(tdChild);

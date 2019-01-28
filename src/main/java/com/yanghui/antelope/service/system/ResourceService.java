@@ -12,4 +12,6 @@ public interface ResourceService {
 
 	public Resource getUserResource(Long userId, String code);
 
+	public boolean isLeaf(Resource res);
+
 }
