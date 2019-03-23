@@ -3,3 +3,5 @@
 /.project
 /.classpath
 /velocity.log
+/.idea/
+/antelope.iml
