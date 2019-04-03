@@ -43,17 +43,17 @@ public class MpGenerator {
 			}
 		});
 		dsc.setDriverName("com.mysql.jdbc.Driver");
-		dsc.setUsername("root");
-		dsc.setPassword("123123");
-		dsc.setUrl("jdbc:mysql://192.168.141.190:3306/unify_login_uc_00?useUnicode=true&characterEncoding=utf8&useSSL=true");
+		dsc.setUsername("mps");
+		dsc.setPassword("123456");
+		dsc.setUrl("jdbc:mysql://192.168.143.97:3306/prvsys?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true");
 		mpg.setDataSource(dsc);
 		
 		 // 策略配置
         StrategyConfig strategy = new StrategyConfig();
     // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix(new String[] {"ids_",});// 此处可以修改为您的表前缀
+        strategy.setTablePrefix(new String[] {"sys_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "ids_users_infos_00","ids_users_infos_ext_00","ids_users_infos_index_00"}); // 需要生成的表
+        strategy.setInclude(new String[] {"sys_role_res_group"}); // 需要生成的表
 //         strategy.setExclude(new String[]{"td_customer"}); // 排除生成的表
         // 自定义实体父类
         // strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -77,8 +77,8 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
-        pc.setEntity("com.idreamsky.sf.usercenter.domain.entity.uc");
-        pc.setMapper("com.idreamsky.sf.usercenter.dao.uc");
+        pc.setEntity("com.idreamsky.sf.prvsys.domain.entity");
+        pc.setMapper("com.idreamsky.sf.prvsys.dao");
         pc.setXml("mapper");
 //        pc.setModuleName("system");
         mpg.setPackageInfo(pc);
